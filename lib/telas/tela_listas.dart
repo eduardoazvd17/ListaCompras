@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 class TelaListas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(child: Text('Listas'));
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Center(
+          child: Text('Listas'),
+        );
+      },
+    );
   }
 }

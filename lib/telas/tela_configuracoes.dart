@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 class TelaConfiguracoes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(child: Text('Config'));
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Center(
+          child: Text('Configs'),
+        );
+      },
+    );
   }
 }

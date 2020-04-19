@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 class TelaInicio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(child: Text('Inicio'));
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Center(
+          child: Text('Inicio'),
+        );
+      },
+    );
   }
 }
