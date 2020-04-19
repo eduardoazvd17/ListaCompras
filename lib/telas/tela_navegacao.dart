@@ -23,7 +23,7 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
     final List<Widget> _telas = [
       TelaInicio(),
       TelaListas(),
-      TelaConfiguracoes(),
+      //TelaConfiguracoes(),
     ];
 
     return Layout(
@@ -35,16 +35,16 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            //title: Text('Inicio'),
+            title: Text('Inicio'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
-            //title: Text('Listas de Compras'),
+            title: Text('Minhas Listas'),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            //title: Text('Configurações'),
-          ),
+          //BottomNavigationBarItem(
+          //  icon: Icon(Icons.settings),
+          //  title: Text('Configurações'),
+          //),
         ],
         currentIndex: _itemSelecionado,
         onTap: _selecionarItem,
