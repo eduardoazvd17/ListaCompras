@@ -35,15 +35,15 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text('Inicio'),
+            //title: Text('Inicio'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            title: Text('Listas de Compras'),
+            icon: Icon(Icons.shopping_cart),
+            //title: Text('Listas de Compras'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            title: Text('Configurações'),
+            //title: Text('Configurações'),
           ),
         ],
         currentIndex: _itemSelecionado,
