@@ -24,7 +24,7 @@ class ContainerLayout extends StatelessWidget {
             child: child == null
                 ? Container()
                 : Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(15),
                     child: child,
                   ),
           ),

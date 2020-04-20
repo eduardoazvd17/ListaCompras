@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
       title: 'Lista de Compras',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        accentColor: Colors.blue,
       ),
       home: TelaNavegacao(),
     );
