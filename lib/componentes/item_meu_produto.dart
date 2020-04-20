@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ItemMeuProduto extends StatelessWidget {
-  final String nome;
-  final Function onAdicionarInformacoes;
-  final Function onDeletar;
-  ItemMeuProduto({this.nome, this.onDeletar, this.onAdicionarInformacoes});
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         ListTile(
           title: Text(
-            nome,
+            'meu produto',
             overflow: TextOverflow.ellipsis,
           ),
           trailing: Row(
@@ -23,14 +18,14 @@ class ItemMeuProduto extends StatelessWidget {
                   Icons.add_comment,
                   color: Theme.of(context).accentColor,
                 ),
-                onPressed: onAdicionarInformacoes,
+                onPressed: () {},
               ),
               IconButton(
                 icon: Icon(
                   Icons.delete,
                   color: Colors.red,
                 ),
-                onPressed: onDeletar,
+                onPressed: () {},
               ),
             ],
           ),

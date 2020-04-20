@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:listacompras/componentes/form_lista.dart';
 import 'package:listacompras/componentes/layout.dart';
 import 'package:listacompras/telas/tela_inicio.dart';
 import 'package:listacompras/telas/tela_listas.dart';
@@ -29,7 +30,18 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
       child: _telas[_itemSelecionado],
       floatingActionButton: _itemSelecionado == 1
           ? FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                showModalBottomSheet(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(40),
+                    ),
+                  ),
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (_) => FormLista(),
+                );
+              },
               child: Icon(Icons.add),
             )
           : null,

@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ItemProduto extends StatefulWidget {
-  final String nome;
-  final bool valor;
-  ItemProduto({this.nome, this.valor});
-
   @override
-  _ItemProdutoState createState() =>
-      _ItemProdutoState(valor == null ? false : valor);
+  _ItemProdutoState createState() => _ItemProdutoState();
 }
 
 class _ItemProdutoState extends State<ItemProduto> {
   bool valor;
-  _ItemProdutoState(this.valor);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +14,7 @@ class _ItemProdutoState extends State<ItemProduto> {
       children: <Widget>[
         CheckboxListTile(
           title: Text(
-            widget.nome,
+            'produto',
             overflow: TextOverflow.ellipsis,
           ),
           value: valor,

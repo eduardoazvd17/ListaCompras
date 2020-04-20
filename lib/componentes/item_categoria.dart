@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ItemCategoria extends StatelessWidget {
-  final String nome;
-  final Function onTap;
-  ItemCategoria({this.nome, this.onTap});
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
       child: InkWell(
-        onTap: onTap,
+        onTap: () {},
         child: Padding(
           padding:
               const EdgeInsets.only(left: 15, right: 15, top: 20, bottom: 20),
@@ -17,7 +14,7 @@ class ItemCategoria extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                nome,
+                'categoria',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Icon(

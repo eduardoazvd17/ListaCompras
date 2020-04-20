@@ -6,7 +6,7 @@ class TelaListas extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Center(
-          child: Text('Inicio'),
+          child: Text('Listas'),
         );
       },
     );
