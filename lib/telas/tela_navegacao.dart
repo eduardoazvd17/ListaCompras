@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:listacompras/componentes/layout.dart';
-import 'package:listacompras/telas/tela_configuracoes.dart';
 import 'package:listacompras/telas/tela_inicio.dart';
 import 'package:listacompras/telas/tela_listas.dart';
 
@@ -23,14 +22,17 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
     final List<Widget> _telas = [
       TelaInicio(),
       TelaListas(),
-      //TelaConfiguracoes(),
     ];
 
     return Layout(
-      title: _itemSelecionado == 0
-          ? 'Inicio'
-          : _itemSelecionado == 1 ? 'Listas de Compras' : 'Configurações',
+      title: _itemSelecionado == 0 ? 'Inicio' : 'Listas de Compras',
       child: _telas[_itemSelecionado],
+      floatingActionButton: _itemSelecionado == 1
+          ? FloatingActionButton(
+              onPressed: () {},
+              child: Icon(Icons.add),
+            )
+          : null,
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
@@ -43,10 +45,6 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
             icon: Icon(Icons.shopping_cart),
             title: Text('Listas de Compras'),
           ),
-          //BottomNavigationBarItem(
-          //  icon: Icon(Icons.settings),
-          //  title: Text('Configurações'),
-          //),
         ],
         currentIndex: _itemSelecionado,
         onTap: _selecionarItem,
