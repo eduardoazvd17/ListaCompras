@@ -1,9 +1,7 @@
-import 'package:listacompras/modelos/categoria.dart';
-
 class Produto {
   String id;
-  Categoria categoria;
+  String idCategoria;
   String nome;
 
-  Produto({this.id, this.nome, this.categoria});
+  Produto({this.id, this.nome, this.idCategoria});
 }
