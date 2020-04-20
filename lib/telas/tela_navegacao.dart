@@ -32,6 +32,8 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
           : _itemSelecionado == 1 ? 'Listas de Compras' : 'Configurações',
       child: _telas[_itemSelecionado],
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -39,7 +41,7 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
-            title: Text('Minhas Listas'),
+            title: Text('Listas de Compras'),
           ),
           //BottomNavigationBarItem(
           //  icon: Icon(Icons.settings),
