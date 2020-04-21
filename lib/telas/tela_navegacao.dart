@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:listacompras/componentes/form_lista.dart';
 import 'package:listacompras/componentes/layout.dart';
+import 'package:listacompras/modelos/usuario.dart';
 import 'package:listacompras/telas/tela_inicio.dart';
 import 'package:listacompras/telas/tela_listas.dart';
 
@@ -10,7 +11,14 @@ class TelaNavegacao extends StatefulWidget {
 }
 
 class _TelaNavegacaoState extends State<TelaNavegacao> {
+  Usuario usuario = Usuario(email: 'admin@eduardoazevedo.dev');
   int _itemSelecionado = 0;
+
+  _atualizarUsuario(Usuario u) {
+    setState(() {
+      usuario = u;
+    });
+  }
 
   void _selecionarItem(int i) {
     setState(() {
@@ -22,7 +30,7 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
   Widget build(BuildContext context) {
     final List<Widget> _telas = [
       TelaInicio(),
-      TelaListas(),
+      TelaListas(usuario: usuario, atualizarUsuario: _atualizarUsuario),
     ];
 
     return Layout(
@@ -39,7 +47,8 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
                   ),
                   isScrollControlled: true,
                   context: context,
-                  builder: (_) => FormLista(),
+                  builder: (_) => FormLista(
+                      usuario: usuario, atualizarUsuario: _atualizarUsuario),
                 );
               },
               child: Icon(Icons.add),

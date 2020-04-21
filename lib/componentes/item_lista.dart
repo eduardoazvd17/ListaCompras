@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:listacompras/modelos/lista.dart';
 
 class ItemLista extends StatelessWidget {
+  final Lista lista;
+  final Function onEditar;
+  final Function onDeletar;
+  final Function onTap;
+  ItemLista({this.lista, this.onDeletar, this.onEditar, this.onTap});
+
   String _formatarData(DateTime data) {
     String string = data.toString();
     String dia = string[8].toString() + string[9].toString();
@@ -17,11 +24,12 @@ class ItemLista extends StatelessWidget {
     return Column(
       children: <Widget>[
         ListTile(
+          onTap: () => onTap(lista, context),
           title: Text(
-            'lista',
+            lista.nome,
             overflow: TextOverflow.ellipsis,
           ),
-          subtitle: Text(_formatarData(DateTime.now())),
+          subtitle: Text(_formatarData(lista.data)),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -30,14 +38,14 @@ class ItemLista extends StatelessWidget {
                   Icons.edit,
                   color: Theme.of(context).accentColor,
                 ),
-                onPressed: () {},
+                onPressed: () => onEditar(lista, context),
               ),
               IconButton(
                 icon: Icon(
                   Icons.delete,
                   color: Colors.red,
                 ),
-                onPressed: () {},
+                onPressed: () => onDeletar(lista, context),
               ),
             ],
           ),
