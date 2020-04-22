@@ -9,7 +9,7 @@ class Dados {
     Categoria(id: 'c4', nome: 'Peixes e Frutos do Mar'),
     Categoria(id: 'c5', nome: 'Lanches'),
     Categoria(id: 'c6', nome: 'Enlatados'),
-    Categoria(id: 'c7', nome: 'Laticíneos'),
+    Categoria(id: 'c7', nome: 'Laticínios'),
     Categoria(id: 'c8', nome: 'Açougue'),
     Categoria(id: 'c9', nome: 'Queijos'),
     Categoria(id: 'c10', nome: 'Doces'),
@@ -103,7 +103,7 @@ class Dados {
     Produto(id: 'c6p6', nome: 'Aspargo', idCategoria: 'c6'),
     Produto(id: 'c6p7', nome: 'Azeitona', idCategoria: 'c6'),
     Produto(id: 'c6p8', nome: 'Outros', idCategoria: 'c6'),
-    //Laticineos
+    //Laticinios
     Produto(id: 'c7p1', nome: 'Leite', idCategoria: 'c7'),
     Produto(id: 'c7p2', nome: 'Iogurte', idCategoria: 'c7'),
     Produto(id: 'c7p3', nome: 'Manteiga', idCategoria: 'c7'),
@@ -283,4 +283,8 @@ class Dados {
     Produto(id: 'c21p7', nome: 'Água Saborizada', idCategoria: 'c21'),
     Produto(id: 'c21p8', nome: 'Outros', idCategoria: 'c21'),
   ];
+
+  List<Produto> produtosPorCategoria(Categoria c) {
+    return produtos.where((pr) => pr.idCategoria == c.id).toList();
+  }
 }

@@ -13,5 +13,14 @@ class Usuario {
     listasDeCompras.removeWhere((li) => li.id == l.id);
   }
 
+  Lista listaPorId(String id) {
+    for (var l in listasDeCompras) {
+      if (l.id == id) {
+        return l;
+      }
+    }
+    return null;
+  }
+
   Usuario({this.email});
 }

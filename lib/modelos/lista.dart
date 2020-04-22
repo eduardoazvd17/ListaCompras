@@ -15,5 +15,14 @@ class Lista {
     produtos.removeWhere((pr) => pr.id == p.id);
   }
 
+  bool verificarExistencia(Produto p) {
+    for (var pr in produtos) {
+      if (pr.id == p.id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   Lista({this.id, this.nome});
 }
