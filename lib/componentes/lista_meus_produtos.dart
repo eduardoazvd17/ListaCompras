@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:listacompras/componentes/form_informacoes_produtos.dart';
 import 'package:listacompras/componentes/item_meu_produto.dart';
 import 'package:listacompras/modelos/lista.dart';
 import 'package:listacompras/modelos/produto.dart';
@@ -26,7 +27,7 @@ class ListaMeusProdutos extends StatelessWidget {
       ),
       isScrollControlled: true,
       context: context,
-      builder: (_) => Container(),
+      builder: (_) => FormInformacoesProdutos(),
     );
   }
 
