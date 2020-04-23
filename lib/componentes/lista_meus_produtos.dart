@@ -3,6 +3,7 @@ import 'package:listacompras/componentes/item_meu_produto.dart';
 import 'package:listacompras/modelos/lista.dart';
 import 'package:listacompras/modelos/produto.dart';
 import 'package:listacompras/modelos/usuario.dart';
+import 'package:listacompras/utilitarios/dados.dart';
 
 class ListaMeusProdutos extends StatelessWidget {
   final Usuario usuario;
@@ -29,14 +30,22 @@ class ListaMeusProdutos extends StatelessWidget {
     );
   }
 
+  _marcarProduto(Produto produto, BuildContext context) {
+    produto.isComprado = !produto.isComprado;
+    lista.adicionarProduto(produto);
+    usuario.adicionarLista(lista);
+    atualizarUsuario(usuario);
+    atualizarLista();
+  }
+
   _deletarProduto(Produto produto, BuildContext context) {
     showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
             title: Text('Excluir Produto'),
-            content:
-                Text('Deseja realmente excluir o produto: ${produto.nome}?'),
+            content: Text(
+                'Deseja realmente excluir o produto: ${produto.nome} da categoria: ${Dados().categorias.where((c) => c.id == produto.idCategoria).toList()[0].nome}?'),
             actions: <Widget>[
               FlatButton(
                   onPressed: () {
@@ -48,10 +57,11 @@ class ListaMeusProdutos extends StatelessWidget {
                   },
                   child: Text('Sim')),
               FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Não')),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Não'),
+              ),
             ],
           );
         });
@@ -59,16 +69,52 @@ class ListaMeusProdutos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: lista.produtos.length,
-      itemBuilder: (context, index) {
-        Produto produto = lista.produtos[index];
-        return ItemMeuProduto(
-          produto: produto,
-          onDeletar: _deletarProduto,
-          addInfo: _adicionarInformacoes,
-        );
-      },
+    Map<String, List<Produto>> produtosPorCategoria =
+        lista.produtosPorCategoria();
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 30),
+        child: Column(
+          children: Dados().categorias.map(
+            (c) {
+              List<Produto> produtos = produtosPorCategoria[c.id];
+              if (produtos.length > 0) {
+                return Card(
+                  elevation: 5,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          c.nome,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 10),
+                        Column(
+                          children: produtos.map(
+                            (p) {
+                              return ItemMeuProduto(
+                                produto: p,
+                                onDeletar: _deletarProduto,
+                                addInfo: _adicionarInformacoes,
+                                onTap: _marcarProduto,
+                              );
+                            },
+                          ).toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              } else {
+                return Container();
+              }
+            },
+          ).toList(),
+        ),
+      ),
     );
   }
 }

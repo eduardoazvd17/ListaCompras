@@ -36,6 +36,7 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
     return Layout(
       title: _itemSelecionado == 0 ? 'Inicio' : 'Listas de Compras',
       child: _telas[_itemSelecionado],
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: _itemSelecionado == 1
           ? FloatingActionButton(
               onPressed: () {

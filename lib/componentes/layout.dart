@@ -7,6 +7,7 @@ class Layout extends StatelessWidget {
   final List<Widget> actions;
   final Widget child;
   final FloatingActionButton floatingActionButton;
+  final FloatingActionButtonLocation floatingActionButtonLocation;
   final BottomNavigationBar bottomNavigationBar;
 
   Layout({
@@ -14,6 +15,7 @@ class Layout extends StatelessWidget {
     this.child,
     this.actions,
     this.floatingActionButton,
+    this.floatingActionButtonLocation,
     this.bottomNavigationBar,
   });
 
@@ -28,6 +30,9 @@ class Layout extends StatelessWidget {
       ),
       body: ContainerLayout(child: child),
       floatingActionButton: floatingActionButton,
+      floatingActionButtonLocation: floatingActionButtonLocation == null
+          ? FloatingActionButtonLocation.endFloat
+          : floatingActionButtonLocation,
       bottomNavigationBar: bottomNavigationBar,
     );
   }

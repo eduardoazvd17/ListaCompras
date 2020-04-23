@@ -31,7 +31,7 @@ class Dados {
     Produto(id: 'c1p1', nome: 'Arroz', idCategoria: 'c1'),
     Produto(id: 'c1p2', nome: 'Feijão', idCategoria: 'c1'),
     Produto(id: 'c1p3', nome: 'Grão de Bico', idCategoria: 'c1'),
-    Produto(id: 'c1p4', nome: 'Óleo', idCategoria: 'c1'),
+    Produto(id: 'c1p4', nome: 'Oleo', idCategoria: 'c1'),
     Produto(id: 'c1p5', nome: 'Farinha de Trigo', idCategoria: 'c1'),
     Produto(id: 'c1p6', nome: 'Farinha de Rosca', idCategoria: 'c1'),
     Produto(id: 'c1p7', nome: 'Povilho', idCategoria: 'c1'),
@@ -178,7 +178,7 @@ class Dados {
     Produto(id: 'c15p16', nome: 'Espuma de Barbear', idCategoria: 'c15'),
     Produto(id: 'c15p17', nome: 'Prestobarba', idCategoria: 'c15'),
     Produto(id: 'c15p18', nome: 'Fralda', idCategoria: 'c15'),
-    Produto(id: 'c15p19', nome: 'Óleos', idCategoria: 'c15'),
+    Produto(id: 'c15p19', nome: 'Oleos', idCategoria: 'c15'),
     Produto(id: 'c15p20', nome: 'Outros', idCategoria: 'c15'),
     //Limpeza
     Produto(id: 'c16p1', nome: 'Bucha', idCategoria: 'c16'),
@@ -283,6 +283,23 @@ class Dados {
     Produto(id: 'c21p7', nome: 'Água Saborizada', idCategoria: 'c21'),
     Produto(id: 'c21p8', nome: 'Outros', idCategoria: 'c21'),
   ];
+
+  Dados() {
+    ordenar();
+  }
+
+  ordenar() {
+    categorias.sort(
+      (a, b) => a.nome.toLowerCase().compareTo(
+            b.nome.toLowerCase(),
+          ),
+    );
+    produtos.sort(
+      (a, b) => a.nome.toLowerCase().compareTo(
+            b.nome.toLowerCase(),
+          ),
+    );
+  }
 
   List<Produto> produtosPorCategoria(Categoria c) {
     return produtos.where((pr) => pr.idCategoria == c.id).toList();

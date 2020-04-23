@@ -42,7 +42,7 @@ class ItemLista extends StatelessWidget {
               ),
               IconButton(
                 icon: Icon(
-                  Icons.delete,
+                  Icons.close,
                   color: Colors.red,
                 ),
                 onPressed: () => onDeletar(lista, context),

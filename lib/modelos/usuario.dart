@@ -7,6 +7,9 @@ class Usuario {
   adicionarLista(Lista l) {
     removerLista(l);
     listasDeCompras.add(l);
+    listasDeCompras.sort(
+      (a, b) => b.data.compareTo(a.data),
+    );
   }
 
   removerLista(Lista l) {

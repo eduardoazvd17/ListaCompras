@@ -5,7 +5,8 @@ class ItemMeuProduto extends StatelessWidget {
   final Produto produto;
   final Function onDeletar;
   final Function addInfo;
-  ItemMeuProduto({this.produto, this.onDeletar, this.addInfo});
+  final Function onTap;
+  ItemMeuProduto({this.produto, this.onDeletar, this.addInfo, this.onTap});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -14,20 +15,34 @@ class ItemMeuProduto extends StatelessWidget {
           title: Text(
             produto.nome,
             overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+                decoration: produto.isComprado
+                    ? TextDecoration.lineThrough
+                    : TextDecoration.none),
           ),
+          leading: produto.isComprado
+              ? CircleAvatar(
+                  child: Icon(
+                    Icons.done,
+                    color: Colors.black,
+                  ),
+                  backgroundColor: Colors.transparent,
+                )
+              : null,
+          onTap: () => onTap(produto, context),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               IconButton(
                 icon: Icon(
-                  Icons.add_comment,
+                  Icons.more_vert,
                   color: Theme.of(context).accentColor,
                 ),
                 onPressed: () => addInfo(produto, context),
               ),
               IconButton(
                 icon: Icon(
-                  Icons.delete,
+                  Icons.close,
                   color: Colors.red,
                 ),
                 onPressed: () => onDeletar(produto, context),
