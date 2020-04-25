@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:listacompras/telas/tela_navegacao.dart';
+import 'package:listacompras/telas/tela_splash.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         accentColor: Colors.blue,
       ),
-      home: TelaNavegacao(),
+      home: TelaSplash(),
     );
   }
 }

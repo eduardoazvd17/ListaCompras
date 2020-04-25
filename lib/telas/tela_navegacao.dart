@@ -6,13 +6,17 @@ import 'package:listacompras/telas/tela_inicio.dart';
 import 'package:listacompras/telas/tela_listas.dart';
 
 class TelaNavegacao extends StatefulWidget {
+  final Usuario usuario;
+  TelaNavegacao(this.usuario);
   @override
-  _TelaNavegacaoState createState() => _TelaNavegacaoState();
+  _TelaNavegacaoState createState() => _TelaNavegacaoState(usuario);
 }
 
 class _TelaNavegacaoState extends State<TelaNavegacao> {
-  Usuario usuario = Usuario(email: 'admin@eduardoazevedo.dev');
+  Usuario usuario;
+  Function atualizarUsuario;
   int _itemSelecionado = 0;
+  _TelaNavegacaoState(this.usuario);
 
   _atualizarUsuario(Usuario u) {
     setState(() {
