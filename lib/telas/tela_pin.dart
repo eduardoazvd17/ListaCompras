@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:listacompras/modelos/lista.dart';
 import 'package:listacompras/modelos/produto.dart';
 import 'package:listacompras/modelos/usuario.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TelaPin extends StatefulWidget {
   final int pin;
@@ -66,6 +67,8 @@ class _TelaPinState extends State<TelaPin> {
           listasDeCompras: listas,
         ),
       );
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('email', emailUsuario);
       Navigator.of(context).pop();
     } else {
       pinController.clear();

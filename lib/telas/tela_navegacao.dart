@@ -4,6 +4,7 @@ import 'package:listacompras/componentes/layout.dart';
 import 'package:listacompras/modelos/usuario.dart';
 import 'package:listacompras/telas/tela_inicio.dart';
 import 'package:listacompras/telas/tela_listas.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TelaNavegacao extends StatefulWidget {
   final Usuario usuario;
@@ -41,6 +42,17 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
           ? 'Entre com seu e-mail'
           : _itemSelecionado == 0 ? 'Inicio' : 'Listas de Compras',
       child: _telas[_itemSelecionado],
+      actions: _itemSelecionado == 0
+          ? <Widget>[
+              IconButton(
+                  icon: Icon(Icons.exit_to_app),
+                  onPressed: () async {
+                    _atualizarUsuario(null);
+                    final prefs = await SharedPreferences.getInstance();
+                    prefs.setString('email', '');
+                  })
+            ]
+          : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: usuario == null
           ? null
