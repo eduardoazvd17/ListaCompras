@@ -14,7 +14,6 @@ class TelaNavegacao extends StatefulWidget {
 
 class _TelaNavegacaoState extends State<TelaNavegacao> {
   Usuario usuario;
-  Function atualizarUsuario;
   int _itemSelecionado = 0;
   _TelaNavegacaoState(this.usuario);
 
@@ -33,48 +32,55 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> _telas = [
-      TelaInicio(),
+      TelaInicio(usuario: usuario, atualizarUsuario: _atualizarUsuario),
       TelaListas(usuario: usuario, atualizarUsuario: _atualizarUsuario),
     ];
 
     return Layout(
-      title: _itemSelecionado == 0 ? 'Inicio' : 'Listas de Compras',
+      title: usuario == null
+          ? 'Entre com seu e-mail'
+          : _itemSelecionado == 0 ? 'Inicio' : 'Listas de Compras',
       child: _telas[_itemSelecionado],
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: _itemSelecionado == 1
-          ? FloatingActionButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(40),
-                    ),
-                  ),
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (_) => FormLista(
-                      usuario: usuario, atualizarUsuario: _atualizarUsuario),
-                );
-              },
-              child: Icon(Icons.add),
-            )
-          : null,
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Inicio'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            title: Text('Listas de Compras'),
-          ),
-        ],
-        currentIndex: _itemSelecionado,
-        onTap: _selecionarItem,
-      ),
+      floatingActionButton: usuario == null
+          ? null
+          : _itemSelecionado == 1
+              ? FloatingActionButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(40),
+                        ),
+                      ),
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (_) => FormLista(
+                          usuario: usuario,
+                          atualizarUsuario: _atualizarUsuario),
+                    );
+                  },
+                  child: Icon(Icons.add),
+                )
+              : null,
+      bottomNavigationBar: usuario == null
+          ? null
+          : BottomNavigationBar(
+              showSelectedLabels: true,
+              showUnselectedLabels: false,
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  title: Text('Inicio'),
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.shopping_cart),
+                  title: Text('Listas de Compras'),
+                ),
+              ],
+              currentIndex: _itemSelecionado,
+              onTap: _selecionarItem,
+            ),
     );
   }
 }

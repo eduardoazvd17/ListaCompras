@@ -46,5 +46,5 @@ class Lista {
     return false;
   }
 
-  Lista({this.id, this.nome});
+  Lista({this.id, this.nome, this.data, this.produtos});
 }

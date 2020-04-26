@@ -4,5 +4,5 @@ class Produto {
   String nome;
   bool isComprado = false;
 
-  Produto({this.id, this.nome, this.idCategoria});
+  Produto({this.id, this.nome, this.idCategoria, this.isComprado});
 }

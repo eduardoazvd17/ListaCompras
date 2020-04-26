@@ -1,6 +1,7 @@
 import 'package:listacompras/modelos/lista.dart';
 
 class Usuario {
+  String nome;
   String email;
   List<Lista> listasDeCompras = [];
 
@@ -25,5 +26,5 @@ class Usuario {
     return null;
   }
 
-  Usuario({this.email});
+  Usuario({this.email, this.nome, this.listasDeCompras});
 }

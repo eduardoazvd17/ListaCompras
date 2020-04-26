@@ -45,12 +45,6 @@ class _FormListaState extends State<FormLista> {
               ),
               SizedBox(height: 10),
               TextFormField(
-                validator: (string) {
-                  if (string.isEmpty) {
-                    return 'Insira um nome para a lista';
-                  }
-                  return null;
-                },
                 textCapitalization: TextCapitalization.sentences,
                 controller: listaController,
                 decoration: InputDecoration(
