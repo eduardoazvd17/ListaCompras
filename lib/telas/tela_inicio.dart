@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:listacompras/componentes/form_cadastro.dart';
 import 'package:listacompras/modelos/usuario.dart';
@@ -70,24 +69,15 @@ class TelaInicio extends StatelessWidget {
                                         return;
                                       }
 
-                                      Firestore.instance
-                                          .collection('pins')
-                                          .document(email)
-                                          .get()
-                                          .then(
-                                        (doc) {
-                                          int pin = int.tryParse(doc['pin']);
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: (_) => TelaPin(
-                                                email: email,
-                                                atualizarUsuario:
-                                                    atualizarUsuario,
-                                                pin: pin,
-                                              ),
-                                            ),
-                                          );
-                                        },
+                                      int pin = int.tryParse('1234');
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (_) => TelaPin(
+                                            email: email,
+                                            atualizarUsuario: atualizarUsuario,
+                                            pin: pin,
+                                          ),
+                                        ),
                                       );
                                     },
                                     child: Text(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:listacompras/modelos/usuario.dart';
 
 class TelaPin extends StatefulWidget {
   final int pin;
@@ -19,7 +20,8 @@ class _TelaPinState extends State<TelaPin> {
     int pin = int.tryParse(pinController.text);
     //Loading
     if (pin == widget.pin) {
-      //fazer login
+      widget
+          .atualizarUsuario(Usuario(email: widget.email, nome: 'Eduardo DEV'));
       Navigator.of(context).pop();
     } else {
       pinController.clear();

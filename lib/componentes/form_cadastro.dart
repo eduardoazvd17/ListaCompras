@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:listacompras/modelos/usuario.dart';
 
@@ -98,21 +95,6 @@ class _FormCadastroState extends State<FormCadastro> {
                       }
 
                       Usuario usuario = Usuario(nome: nome, email: email);
-                      Firestore.instance
-                          .collection('usuarios')
-                          .document(email)
-                          .setData({
-                        'nome': nome,
-                        'email': email,
-                      });
-                      Firestore.instance
-                          .collection('pins')
-                          .document(email)
-                          .setData(
-                        {
-                          'pin': pin,
-                        },
-                      );
                       widget.atualizarUsuario(usuario);
                       Navigator.of(context).pop();
                     },
