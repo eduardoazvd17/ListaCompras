@@ -9,7 +9,7 @@ class TelaSplash extends StatefulWidget {
 
 class _TelaSplashState extends State<TelaSplash> {
   @override
-  void initState() async {
+  void initState() {
     super.initState();
     Usuario usuario;
     Future.delayed(Duration(seconds: 3), () {
