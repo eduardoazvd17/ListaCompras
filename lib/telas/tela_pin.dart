@@ -1,9 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:listacompras/modelos/lista.dart';
-import 'package:listacompras/modelos/produto.dart';
-import 'package:listacompras/modelos/usuario.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TelaPin extends StatefulWidget {
   final int pin;
@@ -24,51 +19,7 @@ class _TelaPinState extends State<TelaPin> {
     int pin = int.tryParse(pinController.text);
     //Loading
     if (pin == widget.pin) {
-      var docUsuario = await Firestore.instance
-          .collection('usuario')
-          .document(widget.email)
-          .get();
-
-      String nomeUsuario = docUsuario['nome'];
-      String emailUsuario = docUsuario['email'];
-      List<Lista> listas = [];
-
-      var docListas =
-          await docUsuario.reference.collection('listas').getDocuments();
-
-      for (var docLista in docListas.documents) {
-        String idLista = docLista['id'];
-        String nomeLista = docLista['nome'];
-        DateTime dataLista = (docLista['data'] as Timestamp).toDate();
-        List<Produto> produtos = [];
-
-        var docProdutos =
-            await docLista.reference.collection('produtos').getDocuments();
-
-        for (var docProduto in docProdutos.documents) {
-          String idProduto = docProduto['id'];
-          String idCategoriaProduto = docProduto['idCategoria'];
-          String nomeProduto = docProduto['nome'];
-          bool isCompradoProduto = docProduto['isComprado'] as bool;
-          produtos.add(Produto(
-              id: idProduto,
-              idCategoria: idCategoriaProduto,
-              nome: nomeProduto,
-              isComprado: isCompradoProduto));
-        }
-        listas.add(Lista(
-            id: idLista, nome: nomeLista, data: dataLista, produtos: produtos));
-      }
-
-      widget.atualizarUsuario(
-        Usuario(
-          email: emailUsuario,
-          nome: nomeUsuario,
-          listasDeCompras: listas,
-        ),
-      );
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setString('email', emailUsuario);
+      //fazer login
       Navigator.of(context).pop();
     } else {
       pinController.clear();

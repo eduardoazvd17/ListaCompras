@@ -5,6 +5,8 @@ class Usuario {
   String email;
   List<Lista> listasDeCompras = [];
 
+  Usuario({this.email, this.nome, this.listasDeCompras});
+
   adicionarLista(Lista l) {
     removerLista(l);
     listasDeCompras.add(l);
@@ -25,6 +27,4 @@ class Usuario {
     }
     return null;
   }
-
-  Usuario({this.email, this.nome, this.listasDeCompras});
 }
