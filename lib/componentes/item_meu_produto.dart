@@ -13,7 +13,7 @@ class ItemMeuProduto extends StatelessWidget {
       children: <Widget>[
         ListTile(
           title: Text(
-            produto.nome,
+            produto.nome.replaceAll('zzz', ''),
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
                 decoration: produto.isComprado

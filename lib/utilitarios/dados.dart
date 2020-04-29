@@ -47,7 +47,7 @@ class Dados {
     Produto(id: 'c1p17', nome: 'Ketchup', idCategoria: 'c1'),
     Produto(id: 'c1p19', nome: 'Mostarda', idCategoria: 'c1'),
     Produto(id: 'c1p20', nome: 'Fubá', idCategoria: 'c1'),
-    Produto(id: 'c1p21', nome: 'Outros', idCategoria: 'c1'),
+    Produto(id: 'c1p21', nome: 'zzzOutros', idCategoria: 'c1'),
     //Temperos
     Produto(id: 'c2p1', nome: 'Caldo de Aves', idCategoria: 'c2'),
     Produto(id: 'c2p2', nome: 'Caldo de Peixe', idCategoria: 'c2'),
@@ -63,7 +63,7 @@ class Dados {
     Produto(id: 'c2p12', nome: 'Canela', idCategoria: 'c2'),
     Produto(id: 'c2p13', nome: 'Salsa', idCategoria: 'c2'),
     Produto(id: 'c2p14', nome: 'Alho', idCategoria: 'c2'),
-    Produto(id: 'c2p15', nome: 'Outros', idCategoria: 'c2'),
+    Produto(id: 'c2p15', nome: 'zzzOutros', idCategoria: 'c2'),
     //Sobremesas
     Produto(id: 'c3p1', nome: 'Frutas em Calda', idCategoria: 'c3'),
     Produto(id: 'c3p2', nome: 'Frutas Cristalizadas', idCategoria: 'c3'),
@@ -73,7 +73,7 @@ class Dados {
     Produto(id: 'c3p6', nome: 'Geléia de Mocotó', idCategoria: 'c3'),
     Produto(id: 'c3p7', nome: 'Sorvete', idCategoria: 'c3'),
     Produto(id: 'c3p8', nome: 'Massa de Bolo', idCategoria: 'c3'),
-    Produto(id: 'c3p9', nome: 'Outros', idCategoria: 'c3'),
+    Produto(id: 'c3p9', nome: 'zzzOutros', idCategoria: 'c3'),
     //Peixes e Frutos do Mar
     Produto(id: 'c4p1', nome: 'Pescada', idCategoria: 'c4'),
     Produto(id: 'c4p2', nome: 'Filé de Merluza', idCategoria: 'c4'),
@@ -84,7 +84,7 @@ class Dados {
     Produto(id: 'c4p7', nome: 'Polvo', idCategoria: 'c4'),
     Produto(id: 'c4p8', nome: 'Mechilhão', idCategoria: 'c4'),
     Produto(id: 'c4p9', nome: 'Ostra', idCategoria: 'c4'),
-    Produto(id: 'c4p10', nome: 'Outros', idCategoria: 'c4'),
+    Produto(id: 'c4p10', nome: 'zzzOutros', idCategoria: 'c4'),
     //Lanches
     Produto(id: 'c5p1', nome: 'Bolos', idCategoria: 'c5'),
     Produto(id: 'c5p2', nome: 'Café', idCategoria: 'c5'),
@@ -93,7 +93,7 @@ class Dados {
     Produto(id: 'c5p5', nome: 'Mel', idCategoria: 'c5'),
     Produto(id: 'c5p6', nome: 'Biscoitos', idCategoria: 'c5'),
     Produto(id: 'c5p7', nome: 'Achocolatados', idCategoria: 'c5'),
-    Produto(id: 'c5p8', nome: 'Outros', idCategoria: 'c5'),
+    Produto(id: 'c5p8', nome: 'zzzOutros', idCategoria: 'c5'),
     //Enlatados
     Produto(id: 'c6p1', nome: 'Milho', idCategoria: 'c6'),
     Produto(id: 'c6p2', nome: 'Ervilha', idCategoria: 'c6'),
@@ -102,7 +102,7 @@ class Dados {
     Produto(id: 'c6p5', nome: 'Salsicha', idCategoria: 'c6'),
     Produto(id: 'c6p6', nome: 'Aspargo', idCategoria: 'c6'),
     Produto(id: 'c6p7', nome: 'Azeitona', idCategoria: 'c6'),
-    Produto(id: 'c6p8', nome: 'Outros', idCategoria: 'c6'),
+    Produto(id: 'c6p8', nome: 'zzzOutros', idCategoria: 'c6'),
     //Laticinios
     Produto(id: 'c7p1', nome: 'Leite', idCategoria: 'c7'),
     Produto(id: 'c7p2', nome: 'Iogurte', idCategoria: 'c7'),
@@ -110,7 +110,7 @@ class Dados {
     Produto(id: 'c7p4', nome: 'Margarina', idCategoria: 'c7'),
     Produto(id: 'c7p5', nome: 'Creme de Leite', idCategoria: 'c7'),
     Produto(id: 'c7p6', nome: 'Leite Condensado', idCategoria: 'c7'),
-    Produto(id: 'c7p7', nome: 'Outros', idCategoria: 'c7'),
+    Produto(id: 'c7p7', nome: 'zzzOutros', idCategoria: 'c7'),
     //Açougue
     Produto(id: 'c8p1', nome: 'Costela', idCategoria: 'c8'),
     Produto(id: 'c8p2', nome: 'Alcatra', idCategoria: 'c8'),
@@ -121,44 +121,44 @@ class Dados {
     Produto(id: 'c8p7', nome: 'Carne Moída', idCategoria: 'c8'),
     Produto(id: 'c8p8', nome: 'Salsicha', idCategoria: 'c8'),
     Produto(id: 'c8p9', nome: 'Frango', idCategoria: 'c8'),
-    Produto(id: 'c8p10', nome: 'Outros', idCategoria: 'c8'),
+    Produto(id: 'c8p10', nome: 'zzzOutros', idCategoria: 'c8'),
     //Queijos
     Produto(id: 'c9p1', nome: 'Mussarela', idCategoria: 'c9'),
     Produto(id: 'c9p2', nome: 'Prato', idCategoria: 'c9'),
     Produto(id: 'c9p3', nome: 'Provolone', idCategoria: 'c9'),
     Produto(id: 'c9p4', nome: 'Minas', idCategoria: 'c9'),
-    Produto(id: 'c9p5', nome: 'Outros', idCategoria: 'c9'),
+    Produto(id: 'c9p5', nome: 'zzzOutros', idCategoria: 'c9'),
     //Doces
     Produto(id: 'c10p1', nome: 'Chocolate', idCategoria: 'c10'),
     Produto(id: 'c10p2', nome: 'Jujuba', idCategoria: 'c10'),
     Produto(id: 'c10p3', nome: 'Chiclete', idCategoria: 'c10'),
     Produto(id: 'c10p4', nome: 'Bala', idCategoria: 'c10'),
-    Produto(id: 'c10p5', nome: 'Outros', idCategoria: 'c10'),
+    Produto(id: 'c10p5', nome: 'zzzOutros', idCategoria: 'c10'),
     //Congelados
     Produto(id: 'c11p1', nome: 'Batata', idCategoria: 'c11'),
     Produto(id: 'c11p2', nome: 'Hamburguer', idCategoria: 'c11'),
     Produto(id: 'c11p3', nome: 'Pão de Queijo', idCategoria: 'c11'),
     Produto(id: 'c11p4', nome: 'Nugget', idCategoria: 'c11'),
     Produto(id: 'c11p5', nome: 'Anel de Cebola', idCategoria: 'c11'),
-    Produto(id: 'c11p6', nome: 'Outros', idCategoria: 'c11'),
+    Produto(id: 'c11p6', nome: 'zzzOutros', idCategoria: 'c11'),
     //Refeições Rápidas
     Produto(id: 'c12p1', nome: 'Lasanha', idCategoria: 'c12'),
     Produto(id: 'c12p2', nome: 'Pizza', idCategoria: 'c12'),
     Produto(id: 'c12p3', nome: 'Nhoque', idCategoria: 'c12'),
     Produto(id: 'c12p4', nome: 'Miojo', idCategoria: 'c12'),
     Produto(id: 'c12p5', nome: 'Escondidinho', idCategoria: 'c12'),
-    Produto(id: 'c12p6', nome: 'Outros', idCategoria: 'c12'),
+    Produto(id: 'c12p6', nome: 'zzzOutros', idCategoria: 'c12'),
     //Padaria
     Produto(id: 'c13p1', nome: 'Pão Francês', idCategoria: 'c13'),
     Produto(id: 'c13p2', nome: 'Pão de Forma', idCategoria: 'c13'),
     Produto(id: 'c13p3', nome: 'Pão para Cachorro Quente', idCategoria: 'c13'),
     Produto(id: 'c13p4', nome: 'Croissant', idCategoria: 'c13'),
     Produto(id: 'c13p5', nome: 'Pão Doce', idCategoria: 'c13'),
-    Produto(id: 'c13p6', nome: 'Outros', idCategoria: 'c13'),
+    Produto(id: 'c13p6', nome: 'zzzOutros', idCategoria: 'c13'),
     //Aperitivo
     Produto(id: 'c14p1', nome: 'Milho para Pipoca', idCategoria: 'c14'),
     Produto(id: 'c14p2', nome: 'Amendoin', idCategoria: 'c14'),
-    Produto(id: 'c14p3', nome: 'Outros', idCategoria: 'c14'),
+    Produto(id: 'c14p3', nome: 'zzzOutros', idCategoria: 'c14'),
     //Higiene Pessoal e Beleza
     Produto(id: 'c15p1', nome: 'Shampoo', idCategoria: 'c15'),
     Produto(id: 'c15p2', nome: 'Condicionador', idCategoria: 'c15'),
@@ -179,7 +179,7 @@ class Dados {
     Produto(id: 'c15p17', nome: 'Prestobarba', idCategoria: 'c15'),
     Produto(id: 'c15p18', nome: 'Fralda', idCategoria: 'c15'),
     Produto(id: 'c15p19', nome: 'Oleos', idCategoria: 'c15'),
-    Produto(id: 'c15p20', nome: 'Outros', idCategoria: 'c15'),
+    Produto(id: 'c15p20', nome: 'zzzOutros', idCategoria: 'c15'),
     //Limpeza
     Produto(id: 'c16p1', nome: 'Bucha', idCategoria: 'c16'),
     Produto(id: 'c16p2', nome: 'Álcool', idCategoria: 'c16'),
@@ -202,7 +202,7 @@ class Dados {
     Produto(id: 'c16p20', nome: 'Água Sanitária', idCategoria: 'c16'),
     Produto(id: 'c16p21', nome: 'Sabão em Pó', idCategoria: 'c16'),
     Produto(id: 'c16p22', nome: 'Amaciante', idCategoria: 'c16'),
-    Produto(id: 'c16p23', nome: 'Outros', idCategoria: 'c16'),
+    Produto(id: 'c16p23', nome: 'zzzOutros', idCategoria: 'c16'),
     //Vegetais
     Produto(id: 'c17p1', nome: 'Abobrinha', idCategoria: 'c17'),
     Produto(id: 'c17p2', nome: 'Abóbora', idCategoria: 'c17'),
@@ -222,7 +222,7 @@ class Dados {
     Produto(id: 'c17p16', nome: 'Chuchu', idCategoria: 'c17'),
     Produto(id: 'c17p17', nome: 'Couve-Flor', idCategoria: 'c17'),
     Produto(id: 'c17p18', nome: 'Pimentão', idCategoria: 'c17'),
-    Produto(id: 'c17p19', nome: 'Outros', idCategoria: 'c17'),
+    Produto(id: 'c17p19', nome: 'zzzOutros', idCategoria: 'c17'),
     //Frutas
     Produto(id: 'c18p1', nome: 'Abacate', idCategoria: 'c18'),
     Produto(id: 'c18p2', nome: 'Abacaxi', idCategoria: 'c18'),
@@ -245,7 +245,7 @@ class Dados {
     Produto(id: 'c18p19', nome: 'Kiwi', idCategoria: 'c18'),
     Produto(id: 'c18p20', nome: 'Fruta do Conde', idCategoria: 'c18'),
     Produto(id: 'c18p21', nome: 'Graviola', idCategoria: 'c18'),
-    Produto(id: 'c18p22', nome: 'Outros', idCategoria: 'c18'),
+    Produto(id: 'c18p22', nome: 'zzzOutros', idCategoria: 'c18'),
     //Utilidades
     Produto(id: 'c19p1', nome: 'Pilha', idCategoria: 'c19'),
     Produto(id: 'c19p2', nome: 'Lampada', idCategoria: 'c19'),
@@ -263,7 +263,7 @@ class Dados {
     Produto(id: 'c19p14', nome: 'Papel Alumínio', idCategoria: 'c19'),
     Produto(id: 'c19p15', nome: 'Papel Toalha', idCategoria: 'c19'),
     Produto(id: 'c19p16', nome: 'Palito', idCategoria: 'c19'),
-    Produto(id: 'c19p17', nome: 'Outros', idCategoria: 'c19'),
+    Produto(id: 'c19p17', nome: 'zzzOutros', idCategoria: 'c19'),
     //Frios
     Produto(id: 'c20p1', nome: 'Presunto', idCategoria: 'c20'),
     Produto(id: 'c20p1', nome: 'Mortadela', idCategoria: 'c20'),
@@ -272,7 +272,7 @@ class Dados {
     Produto(id: 'c20p1', nome: 'Linguiça', idCategoria: 'c20'),
     Produto(id: 'c20p1', nome: 'Bacon', idCategoria: 'c20'),
     Produto(id: 'c20p1', nome: 'Copa', idCategoria: 'c20'),
-    Produto(id: 'c20p1', nome: 'Outros', idCategoria: 'c20'),
+    Produto(id: 'c20p1', nome: 'zzzOutros', idCategoria: 'c20'),
     //Bebidas
     Produto(id: 'c21p1', nome: 'Refrigerante', idCategoria: 'c21'),
     Produto(id: 'c21p2', nome: 'Cerveja', idCategoria: 'c21'),
@@ -281,7 +281,7 @@ class Dados {
     Produto(id: 'c21p5', nome: 'Suco', idCategoria: 'c21'),
     Produto(id: 'c21p6', nome: 'Destilados', idCategoria: 'c21'),
     Produto(id: 'c21p7', nome: 'Água Saborizada', idCategoria: 'c21'),
-    Produto(id: 'c21p8', nome: 'Outros', idCategoria: 'c21'),
+    Produto(id: 'c21p8', nome: 'zzzOutros', idCategoria: 'c21'),
   ];
 
   Dados() {

@@ -30,7 +30,7 @@ class _ItemProdutoState extends State<ItemProduto> {
       children: <Widget>[
         CheckboxListTile(
           title: Text(
-            widget.produto.nome,
+            widget.produto.nome.replaceAll('zzz', ''),
             overflow: TextOverflow.ellipsis,
           ),
           value: valor,
