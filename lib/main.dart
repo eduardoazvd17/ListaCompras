@@ -6,13 +6,13 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ThemeData light = ThemeData.light();
+    ThemeData dark = ThemeData.dark();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Lista de Compras',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        accentColor: Colors.blue,
-      ),
+      theme: light,
+      darkTheme: dark,
       home: TelaSplash(),
     );
   }
