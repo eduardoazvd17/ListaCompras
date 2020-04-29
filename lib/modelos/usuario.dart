@@ -27,4 +27,26 @@ class Usuario {
     }
     return null;
   }
+
+  Map<String, dynamic> toJson() {
+    List<Map<String, dynamic>> listas = [];
+    for (var l in listasDeCompras) {
+      listas.add(l.toJson());
+    }
+    return {
+      'nome': this.nome,
+      'email': this.email,
+      'listasDeCompras': listas,
+    };
+  }
+
+  Usuario.fromJson(Map<String, dynamic> json) {
+    this.nome = json['nome'];
+    this.email = json['email'];
+    List<Lista> listas;
+    for (var l in json['listasDeCompras']) {
+      listas.add(Lista.fromJson(l));
+    }
+    this.listasDeCompras = listas;
+  }
 }

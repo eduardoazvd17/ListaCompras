@@ -9,6 +9,30 @@ class Lista {
   DateTime data = DateTime.now();
   List<Produto> produtos = [];
 
+  Map<String, dynamic> toJson() {
+    List<Map<String, dynamic>> produtosJson = [];
+    for (var p in produtos) {
+      produtosJson.add(p.toJson());
+    }
+    return {
+      'id': this.id,
+      'nome': this.nome,
+      'data': this.data,
+      'produtos': produtosJson,
+    };
+  }
+
+  Lista.fromJson(Map<String, dynamic> json) {
+    this.id = json['id'];
+    this.nome = json['nome'];
+    this.data = json['data'];
+    List<Produto> listaProdutos;
+    for (var p in json['produtos']) {
+      listaProdutos.add(Produto.fromJson(p));
+    }
+    this.produtos = listaProdutos;
+  }
+
   adicionarProduto(Produto p) {
     removerProduto(p);
     produtos.add(p);
