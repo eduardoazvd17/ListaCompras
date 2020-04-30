@@ -27,7 +27,12 @@ class ListaMeusProdutos extends StatelessWidget {
       ),
       isScrollControlled: true,
       context: context,
-      builder: (_) => FormInformacoesProdutos(),
+      builder: (_) => FormInformacoesProdutos(
+        usuario: usuario,
+        atualizarUsuario: atualizarUsuario,
+        lista: lista,
+        produto: produto,
+      ),
     );
   }
 
@@ -46,7 +51,7 @@ class ListaMeusProdutos extends StatelessWidget {
           return AlertDialog(
             title: Text('Excluir Produto'),
             content: Text(
-                'Deseja realmente excluir o produto: ${produto.nome} da categoria: ${Dados().categorias.where((c) => c.id == produto.idCategoria).toList()[0].nome}?'),
+                'Deseja realmente excluir o produto: ${produto.nome}?\n\nCategoria: ${Dados().categorias.where((c) => c.id == produto.idCategoria).toList()[0].nome}'),
             actions: <Widget>[
               FlatButton(
                   onPressed: () {
@@ -56,12 +61,18 @@ class ListaMeusProdutos extends StatelessWidget {
                     atualizarLista();
                     Navigator.of(context).pop();
                   },
-                  child: Text('Sim')),
+                  child: Text(
+                    'Sim',
+                    style: TextStyle(color: Theme.of(context).primaryColor),
+                  )),
               FlatButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('Não'),
+                child: Text(
+                  'Não',
+                  style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
               ),
             ],
           );
@@ -81,18 +92,34 @@ class ListaMeusProdutos extends StatelessWidget {
               List<Produto> produtos = produtosPorCategoria[c.id];
               if (produtos.length > 0) {
                 return Card(
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Theme.of(context).primaryColor,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(25),
+                  ),
                   elevation: 5,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Text(
-                          c.nome,
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            c.nome,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              //color: Theme.of(context).primaryColor,
+                            ),
+                          ),
                         ),
-                        SizedBox(height: 10),
+                        Divider(
+                          color: Theme.of(context).primaryColor,
+                          thickness: 1.0,
+                        ),
                         Column(
                           children: produtos.map(
                             (p) {

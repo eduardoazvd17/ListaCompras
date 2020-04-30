@@ -12,8 +12,19 @@ class ItemMeuProduto extends StatelessWidget {
     return Column(
       children: <Widget>[
         ListTile(
+          isThreeLine: produto.descricao == null ? false : true,
+          subtitle: produto.descricao == null
+              ? null
+              : Text('Valor unitário: R\$' +
+                  produto.descricao.preco.toStringAsFixed(2) +
+                  '\nQuantidade: ' +
+                  produto.descricao.quantidade.toString() +
+                  produto.descricao.prefixo +
+                  '\nTotal: R\$' +
+                  (produto.descricao.quantidade * produto.descricao.preco)
+                      .toStringAsFixed(2)),
           title: Text(
-            produto.nome.replaceAll('zzz', ''),
+            produto.nome,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
                 decoration: produto.isComprado
@@ -22,7 +33,10 @@ class ItemMeuProduto extends StatelessWidget {
           ),
           leading: produto.isComprado
               ? CircleAvatar(
-                  child: Icon(Icons.done, color: Theme.of(context).accentColor),
+                  child: Icon(
+                    Icons.done,
+                    color: Colors.grey,
+                  ),
                   backgroundColor: Colors.transparent,
                 )
               : null,

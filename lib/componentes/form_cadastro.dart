@@ -38,7 +38,7 @@ class _FormCadastroState extends State<FormCadastro> {
                 textCapitalization: TextCapitalization.words,
                 controller: nomeController,
                 decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.list),
+                  suffixIcon: Icon(Icons.person),
                   hintText: "Insira seu nome...",
                 ),
               ),
@@ -163,7 +163,8 @@ class _FormCadastroState extends State<FormCadastro> {
                     ),
                   ),
                 ],
-              )
+              ),
+              SizedBox(height: 10),
             ],
           ),
         ),

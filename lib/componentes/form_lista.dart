@@ -99,7 +99,8 @@ class _FormListaState extends State<FormLista> {
                     ),
                   ),
                 ],
-              )
+              ),
+              SizedBox(height: 10),
             ],
           ),
         ),

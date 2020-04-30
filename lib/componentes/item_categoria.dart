@@ -8,6 +8,9 @@ class ItemCategoria extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(25),
+      ),
       elevation: 5,
       child: InkWell(
         onTap: () => onTap(categoria, context),
@@ -23,7 +26,7 @@ class ItemCategoria extends StatelessWidget {
               ),
               Icon(
                 Icons.arrow_forward_ios,
-                color: Theme.of(context).accentColor,
+                //color: Theme.of(context).accentColor,
               ),
             ],
           ),

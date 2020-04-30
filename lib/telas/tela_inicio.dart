@@ -47,6 +47,9 @@ class TelaInicio extends StatelessWidget {
                       ),
                       SizedBox(height: 30),
                       Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
                         elevation: 5,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -110,7 +113,7 @@ class TelaInicio extends StatelessWidget {
                                           .document(email)
                                           .get();
 
-                                      if (doc == null) {
+                                      if (doc.data == null) {
                                         showDialog(
                                             context: context,
                                             builder: (context) {
@@ -201,7 +204,7 @@ class TelaInicio extends StatelessWidget {
                     children: <Widget>[
                       FlutterLogo(
                           size: MediaQuery.of(context).size.width * 0.25),
-                      SizedBox(height: 10),
+                      SizedBox(height: 30),
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,

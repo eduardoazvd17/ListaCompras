@@ -1,8 +1,11 @@
+import 'package:listacompras/modelos/descricao.dart';
+
 class Produto {
   String id;
   String idCategoria;
   String nome;
   bool isComprado = false;
+  Descricao descricao;
 
   Produto({this.id, this.nome, this.idCategoria});
 
@@ -12,6 +15,7 @@ class Produto {
       'idCategoria': this.idCategoria,
       'nome': this.nome,
       'isComprado': this.isComprado,
+      'descricao': this.descricao == null ? null : this.descricao.toJson(),
     };
   }
 
@@ -20,5 +24,8 @@ class Produto {
     this.idCategoria = json['idCategoria'];
     this.nome = json['nome'];
     this.isComprado = json['isComprado'];
+    if (json['descricao'] != null) {
+      this.descricao = Descricao.fromJson(json['descricao']);
+    }
   }
 }

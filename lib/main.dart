@@ -9,10 +9,14 @@ class MyApp extends StatelessWidget {
     ThemeData light = ThemeData.light().copyWith(
       primaryColor: Colors.blue,
       accentColor: Colors.blue,
+      floatingActionButtonTheme:
+          FloatingActionButtonThemeData(backgroundColor: Colors.blue),
     );
     ThemeData dark = ThemeData.dark().copyWith(
       primaryColor: Colors.blue,
       accentColor: Colors.blue,
+      floatingActionButtonTheme:
+          FloatingActionButtonThemeData(backgroundColor: Colors.blue),
     );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
