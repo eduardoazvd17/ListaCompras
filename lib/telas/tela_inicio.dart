@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:listacompras/componentes/form_cadastro.dart';
 import 'package:listacompras/modelos/usuario.dart';
@@ -13,37 +16,45 @@ class TelaInicio extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return usuario == null
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  FlutterLogo(size: MediaQuery.of(context).size.width * 0.25),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
+            ? Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(
-                        'Olá! Seja bem vindo!',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                      FlutterLogo(
+                          size: MediaQuery.of(context).size.width * 0.25),
+                      SizedBox(height: 30),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'Olá! Seja bem vindo.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              'Se já possui uma conta, insira seu e-mail no formulário abaixo.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        'Se já possui uma conta, insira seu e-mail no formulário abaixo.',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    color: Theme.of(context).accentColor,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Card(
+                      SizedBox(height: 30),
+                      Card(
                         elevation: 5,
                         child: Padding(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              TextFormField(
+                              TextField(
                                 textCapitalization: TextCapitalization.none,
                                 keyboardType: TextInputType.emailAddress,
                                 controller: emailController,
@@ -54,10 +65,10 @@ class TelaInicio extends StatelessWidget {
                               ),
                               SizedBox(height: 10),
                               Row(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
                                   FlatButton(
-                                    onPressed: () {
+                                    onPressed: () async {
                                       String email =
                                           emailController.text.trim();
 
@@ -65,17 +76,79 @@ class TelaInicio extends StatelessWidget {
                                         return;
                                       }
 
-                                      if (!email.contains('@.')) {
+                                      if (!email.contains(RegExp('@.'))) {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                title: Text('E-mail Inválido'),
+                                                content: Text(
+                                                    'Digite um endereço de e-mail válido.'),
+                                                actions: <Widget>[
+                                                  FlatButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: Text(
+                                                      'Ok',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .accentColor),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            });
                                         return;
                                       }
 
-                                      int pin = int.tryParse('1234');
+                                      DocumentSnapshot doc = await Firestore
+                                          .instance
+                                          .collection('usuarios')
+                                          .document(email)
+                                          .get();
+
+                                      if (doc == null) {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                title: Text(
+                                                    'E-mail Não Cadastrado'),
+                                                content: Text(
+                                                    'Este endereço de e-mail não está cadastrado, utilize o formulário de cadastro clicando em "Ainda não possui uma conta?".'),
+                                                actions: <Widget>[
+                                                  FlatButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: Text(
+                                                      'Ok',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .accentColor),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            });
+                                        return;
+                                      }
+
+                                      Usuario u = Usuario.fromJson(
+                                        doc['dados'],
+                                      );
+
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
                                           builder: (_) => TelaPin(
-                                            email: email,
+                                            usuario: u,
                                             atualizarUsuario: atualizarUsuario,
-                                            pin: pin,
+                                            pin: doc['pin'],
                                           ),
                                         ),
                                       );
@@ -88,44 +161,70 @@ class TelaInicio extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 10),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  FlatButton(
-                                    onPressed: () {
-                                      showModalBottomSheet(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(40),
-                                          ),
-                                        ),
-                                        isScrollControlled: true,
-                                        context: context,
-                                        builder: (_) => FormCadastro(
-                                          atualizarUsuario: atualizarUsuario,
-                                        ),
-                                      );
-                                    },
-                                    child: Text(
-                                      'Ainda não possui uma conta?',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  ),
-                                ],
-                              ),
                             ],
                           ),
                         ),
                       ),
-                    ),
+                      SizedBox(height: 30),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          FlatButton(
+                            onPressed: () {
+                              showModalBottomSheet(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(40),
+                                  ),
+                                ),
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (_) => FormCadastro(
+                                  atualizarUsuario: atualizarUsuario,
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Ainda não possui uma conta?',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ],
+                ),
               )
             : Center(
-                child: Text(
-                    'Olá ${usuario.nome.split(' ').first}. Seja bem vindo!'),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      FlutterLogo(
+                          size: MediaQuery.of(context).size.width * 0.25),
+                      SizedBox(height: 10),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'Olá ${usuario.nome.split(' ').first}! Bem vindo de volta.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              '',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               );
       },
     );

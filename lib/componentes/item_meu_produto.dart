@@ -22,10 +22,7 @@ class ItemMeuProduto extends StatelessWidget {
           ),
           leading: produto.isComprado
               ? CircleAvatar(
-                  child: Icon(
-                    Icons.done,
-                    color: Colors.black,
-                  ),
+                  child: Icon(Icons.done, color: Theme.of(context).accentColor),
                   backgroundColor: Colors.transparent,
                 )
               : null,

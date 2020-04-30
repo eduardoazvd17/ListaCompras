@@ -41,7 +41,11 @@ class _FormListaState extends State<FormLista> {
             children: <Widget>[
               Text(
                 widget.lista == null ? 'Nova Lista' : 'Editar Lista',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).accentColor,
+                ),
               ),
               SizedBox(height: 10),
               TextFormField(

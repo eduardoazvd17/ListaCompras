@@ -53,12 +53,18 @@ class ListaListas extends StatelessWidget {
                     atualizarUsuario(usuario);
                     Navigator.of(context).pop();
                   },
-                  child: Text('Sim')),
+                  child: Text(
+                    'Sim',
+                    style: TextStyle(color: Theme.of(context).accentColor),
+                  )),
               FlatButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('Não')),
+                  child: Text(
+                    'Não',
+                    style: TextStyle(color: Theme.of(context).accentColor),
+                  )),
             ],
           );
         });

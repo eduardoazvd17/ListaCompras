@@ -4,7 +4,7 @@ class Produto {
   String nome;
   bool isComprado = false;
 
-  Produto({this.id, this.nome, this.idCategoria, this.isComprado});
+  Produto({this.id, this.nome, this.idCategoria});
 
   Map<String, dynamic> toJson() {
     return {

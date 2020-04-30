@@ -5,7 +5,7 @@ class Usuario {
   String email;
   List<Lista> listasDeCompras = [];
 
-  Usuario({this.email, this.nome, this.listasDeCompras});
+  Usuario({this.email, this.nome});
 
   adicionarLista(Lista l) {
     removerLista(l);
@@ -43,7 +43,7 @@ class Usuario {
   Usuario.fromJson(Map<String, dynamic> json) {
     this.nome = json['nome'];
     this.email = json['email'];
-    List<Lista> listas;
+    List<Lista> listas = [];
     for (var l in json['listasDeCompras']) {
       listas.add(Lista.fromJson(l));
     }

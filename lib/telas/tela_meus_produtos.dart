@@ -19,7 +19,7 @@ class TelaMeusProdutos extends StatefulWidget {
 class _TelaMeusProdutosState extends State<TelaMeusProdutos> {
   Lista lista;
 
-  Lista _atualizarLista() {
+  _atualizarLista() {
     setState(() {
       lista = widget.usuario.listaPorId(widget.lista.id);
     });
