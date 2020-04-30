@@ -6,8 +6,14 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ThemeData light = ThemeData.light();
-    ThemeData dark = ThemeData.dark();
+    ThemeData light = ThemeData.light().copyWith(
+      primaryColor: Colors.blue,
+      accentColor: Colors.blue,
+    );
+    ThemeData dark = ThemeData.dark().copyWith(
+      primaryColor: Colors.blue,
+      accentColor: Colors.blue,
+    );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Lista de Compras',
