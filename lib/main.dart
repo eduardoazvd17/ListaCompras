@@ -18,12 +18,20 @@ class MyApp extends StatelessWidget {
       floatingActionButtonTheme:
           FloatingActionButtonThemeData(backgroundColor: Colors.blue),
     );
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Lista de Compras',
-      theme: light,
-      darkTheme: dark,
-      home: TelaSplash(),
+    return GestureDetector(
+      onTap: () {
+        var currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Lista de Compras',
+        theme: light,
+        darkTheme: dark,
+        home: TelaSplash(),
+      ),
     );
   }
 }

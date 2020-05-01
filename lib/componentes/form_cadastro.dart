@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:listacompras/modelos/usuario.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FormCadastro extends StatefulWidget {
   final Function atualizarUsuario;
@@ -79,7 +80,7 @@ class _FormCadastroState extends State<FormCadastro> {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   FlatButton(
-                    onPressed: () {
+                    onPressed: () async {
                       String email = emailController.text.trim();
                       String nome = nomeController.text;
                       String pin = pinController.text;
@@ -143,6 +144,10 @@ class _FormCadastroState extends State<FormCadastro> {
                       }
 
                       Usuario usuario = Usuario(nome: nome, email: email);
+
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      prefs.setString('email', usuario.email);
 
                       Firestore.instance
                           .collection('usuarios')

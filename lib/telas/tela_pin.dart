@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:listacompras/componentes/botao_pin.dart';
 import 'package:listacompras/componentes/layout.dart';
 import 'package:listacompras/modelos/usuario.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TelaPin extends StatefulWidget {
   final String pin;
@@ -19,9 +20,10 @@ class _TelaPinState extends State<TelaPin> {
   String pinDigitado = '';
 
   _entrar(BuildContext context) async {
-    //Loading
     if (pinDigitado == widget.pin) {
       widget.atualizarUsuario(widget.usuario);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('email', widget.usuario.email);
       Navigator.of(context).pop();
     } else {
       setState(() {

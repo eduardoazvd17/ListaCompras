@@ -5,6 +5,7 @@ import 'package:listacompras/componentes/layout.dart';
 import 'package:listacompras/modelos/usuario.dart';
 import 'package:listacompras/telas/tela_inicio.dart';
 import 'package:listacompras/telas/tela_listas.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TelaNavegacao extends StatefulWidget {
   final Usuario usuario;
@@ -18,12 +19,17 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
   int _itemSelecionado = 0;
   _TelaNavegacaoState(this.usuario);
 
-  _atualizarUsuario(Usuario u) {
+  _atualizarUsuario(Usuario u) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     if (u != null) {
       Firestore.instance
           .collection('usuarios')
           .document(u.email)
           .updateData({'dados': u.toJson()});
+      prefs.setString('usuario', u.toJson().toString());
+    } else {
+      prefs.setString('email', '');
+      prefs.setString('usuario', '');
     }
     setState(() {
       usuario = u;

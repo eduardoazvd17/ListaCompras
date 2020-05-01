@@ -30,6 +30,7 @@ class ListaMeusProdutos extends StatelessWidget {
       builder: (_) => FormInformacoesProdutos(
         usuario: usuario,
         atualizarUsuario: atualizarUsuario,
+        atualizarLista: atualizarLista,
         lista: lista,
         produto: produto,
       ),

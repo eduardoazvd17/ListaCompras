@@ -1,21 +1,145 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:listacompras/componentes/form_cadastro.dart';
 import 'package:listacompras/modelos/usuario.dart';
 import 'package:listacompras/telas/tela_pin.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class TelaInicio extends StatelessWidget {
+class TelaInicio extends StatefulWidget {
   final Usuario usuario;
   final Function atualizarUsuario;
   TelaInicio({this.usuario, this.atualizarUsuario});
+
+  @override
+  _TelaInicioState createState() => _TelaInicioState();
+}
+
+class _TelaInicioState extends State<TelaInicio> {
   final emailController = TextEditingController();
+
+  _entrar(bool isAutomatico) async {
+    String email = emailController.text.trim();
+
+    if (email.isEmpty) {
+      return;
+    }
+
+    if (!email.contains(RegExp('@.'))) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('E-mail Inválido'),
+              content: Text('Digite um endereço de e-mail válido.'),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    'Ok',
+                    style: TextStyle(color: Theme.of(context).accentColor),
+                  ),
+                ),
+              ],
+            );
+          });
+      return;
+    }
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: new Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                new CircularProgressIndicator(),
+                SizedBox(height: 15),
+                new Text(
+                  "Entrando...",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    DocumentSnapshot doc =
+        await Firestore.instance.collection('usuarios').document(email).get();
+
+    if (doc.data == null) {
+      Navigator.of(context).pop();
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('E-mail Não Cadastrado'),
+              content: Text(
+                  'Este endereço de e-mail não está cadastrado, utilize o formulário de cadastro clicando em "Ainda não possui uma conta?".'),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    'Ok',
+                    style: TextStyle(color: Theme.of(context).accentColor),
+                  ),
+                ),
+              ],
+            );
+          });
+      return;
+    }
+
+    Usuario u = Usuario.fromJson(
+      doc['dados'],
+    );
+
+    Navigator.of(context).pop();
+
+    if (isAutomatico) {
+      widget.atualizarUsuario(u);
+    } else {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => TelaPin(
+            usuario: u,
+            atualizarUsuario: widget.atualizarUsuario,
+            pin: doc['pin'],
+          ),
+        ),
+      );
+    }
+  }
+
+  int i = 0;
   @override
   Widget build(BuildContext context) {
+    if (widget.usuario == null) {
+      SharedPreferences.getInstance().then((prefs) {
+        if (i == 0) {
+          i++;
+          String email = prefs.getString('email');
+          if (email != null || email.isNotEmpty) {
+            emailController.text = email;
+            _entrar(true);
+          }
+        }
+      });
+    }
     return LayoutBuilder(
       builder: (context, constraints) {
-        return usuario == null
+        return widget.usuario == null
             ? Center(
                 child: SingleChildScrollView(
                   child: Column(
@@ -49,6 +173,10 @@ class TelaInicio extends StatelessWidget {
                       Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25),
+                          side: BorderSide(
+                            color: Theme.of(context).primaryColor,
+                            width: 1.0,
+                          ),
                         ),
                         elevation: 5,
                         child: Padding(
@@ -71,91 +199,7 @@ class TelaInicio extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
                                   FlatButton(
-                                    onPressed: () async {
-                                      String email =
-                                          emailController.text.trim();
-
-                                      if (email.isEmpty) {
-                                        return;
-                                      }
-
-                                      if (!email.contains(RegExp('@.'))) {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                title: Text('E-mail Inválido'),
-                                                content: Text(
-                                                    'Digite um endereço de e-mail válido.'),
-                                                actions: <Widget>[
-                                                  FlatButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    child: Text(
-                                                      'Ok',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .accentColor),
-                                                    ),
-                                                  ),
-                                                ],
-                                              );
-                                            });
-                                        return;
-                                      }
-
-                                      DocumentSnapshot doc = await Firestore
-                                          .instance
-                                          .collection('usuarios')
-                                          .document(email)
-                                          .get();
-
-                                      if (doc.data == null) {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                title: Text(
-                                                    'E-mail Não Cadastrado'),
-                                                content: Text(
-                                                    'Este endereço de e-mail não está cadastrado, utilize o formulário de cadastro clicando em "Ainda não possui uma conta?".'),
-                                                actions: <Widget>[
-                                                  FlatButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    child: Text(
-                                                      'Ok',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .accentColor),
-                                                    ),
-                                                  ),
-                                                ],
-                                              );
-                                            });
-                                        return;
-                                      }
-
-                                      Usuario u = Usuario.fromJson(
-                                        doc['dados'],
-                                      );
-
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (_) => TelaPin(
-                                            usuario: u,
-                                            atualizarUsuario: atualizarUsuario,
-                                            pin: doc['pin'],
-                                          ),
-                                        ),
-                                      );
-                                    },
+                                    onPressed: () => _entrar(false),
                                     child: Text(
                                       'Entrar',
                                       style: TextStyle(
@@ -183,7 +227,7 @@ class TelaInicio extends StatelessWidget {
                                 isScrollControlled: true,
                                 context: context,
                                 builder: (_) => FormCadastro(
-                                  atualizarUsuario: atualizarUsuario,
+                                  atualizarUsuario: widget.atualizarUsuario,
                                 ),
                               );
                             },
@@ -210,7 +254,7 @@ class TelaInicio extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            'Olá ${usuario.nome.split(' ').first}! Bem vindo de volta.',
+                            'Olá ${widget.usuario.nome.split(' ').first}! Bem vindo de volta.',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20),

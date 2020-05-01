@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:listacompras/modelos/usuario.dart';
 import 'package:listacompras/telas/tela_navegacao.dart';
 
 class TelaSplash extends StatefulWidget {
@@ -11,12 +10,11 @@ class _TelaSplashState extends State<TelaSplash> {
   @override
   void initState() {
     super.initState();
-    Usuario usuario;
     Future.delayed(Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (_) => TelaNavegacao(usuario),
+          builder: (_) => TelaNavegacao(null),
         ),
       );
     });

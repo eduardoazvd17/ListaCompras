@@ -17,7 +17,8 @@ class ItemProduto extends StatefulWidget {
     this.valor,
   });
   @override
-  _ItemProdutoState createState() => _ItemProdutoState(this.valor);
+  _ItemProdutoState createState() =>
+      _ItemProdutoState(valor == null ? false : this.valor);
 }
 
 class _ItemProdutoState extends State<ItemProduto> {
@@ -47,7 +48,9 @@ class _ItemProdutoState extends State<ItemProduto> {
             widget.atualizarUsuario(widget.usuario);
           },
         ),
-        Divider(),
+        Divider(
+          color: Theme.of(context).primaryColor,
+        ),
       ],
     );
   }

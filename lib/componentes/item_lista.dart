@@ -50,7 +50,9 @@ class ItemLista extends StatelessWidget {
             ],
           ),
         ),
-        Divider(),
+        Divider(
+          color: Theme.of(context).primaryColor,
+        ),
       ],
     );
   }

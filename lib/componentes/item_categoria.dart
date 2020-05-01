@@ -10,6 +10,10 @@ class ItemCategoria extends StatelessWidget {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(25),
+        side: BorderSide(
+          color: Theme.of(context).primaryColor,
+          width: 1.0,
+        ),
       ),
       elevation: 5,
       child: InkWell(

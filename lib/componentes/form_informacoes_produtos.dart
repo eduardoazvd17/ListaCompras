@@ -8,10 +8,12 @@ import 'package:listacompras/modelos/usuario.dart';
 class FormInformacoesProdutos extends StatefulWidget {
   final Usuario usuario;
   final Function atualizarUsuario;
+  final Function atualizarLista;
   final Lista lista;
   final Produto produto;
   FormInformacoesProdutos({
     this.atualizarUsuario,
+    this.atualizarLista,
     this.lista,
     this.produto,
     this.usuario,
@@ -21,7 +23,7 @@ class FormInformacoesProdutos extends StatefulWidget {
   _FormInformacoesProdutosState createState() => produto.descricao == null
       ? _FormInformacoesProdutosState(
           TextEditingController(),
-          1,
+          0,
           TextEditingController(),
           'x',
         )
@@ -29,7 +31,10 @@ class FormInformacoesProdutos extends StatefulWidget {
           TextEditingController(text: produto.descricao.descricao),
           produto.descricao.quantidade,
           TextEditingController(
-              text: produto.descricao.preco.toStringAsFixed(2)),
+            text: produto.descricao.preco == null
+                ? ''
+                : produto.descricao.preco.toStringAsFixed(2),
+          ),
           produto.descricao.prefixo,
         );
 }
@@ -43,9 +48,6 @@ class _FormInformacoesProdutosState extends State<FormInformacoesProdutos> {
       this.precoController, this.prefixo);
 
   _salvar(BuildContext context) {
-    if (precoController.text.isEmpty) {
-      return;
-    }
     String valor = precoController.text.replaceAll(',', '.');
     widget.produto.descricao = Descricao(
       descricao: descricaoController.text,
@@ -56,6 +58,7 @@ class _FormInformacoesProdutosState extends State<FormInformacoesProdutos> {
     widget.lista.adicionarProduto(widget.produto);
     widget.usuario.adicionarLista(widget.lista);
     widget.atualizarUsuario(widget.usuario);
+    widget.atualizarLista();
     Navigator.of(context).pop();
   }
 
@@ -115,7 +118,7 @@ class _FormInformacoesProdutosState extends State<FormInformacoesProdutos> {
                       icon: Icon(Icons.remove),
                       onPressed: () {
                         setState(() {
-                          if (quantidade <= 1) {
+                          if (quantidade <= 0) {
                             return;
                           }
                           quantidade--;
@@ -135,12 +138,14 @@ class _FormInformacoesProdutosState extends State<FormInformacoesProdutos> {
                       items: Prefixo.values.map((p) {
                         return DropdownMenuItem(
                           value: p.toString().replaceAll('Prefixo.', ''),
-                          child: Text(p.toString().replaceAll('Prefixo.', '') ==
-                                  'x'
-                              ? 'Unidades'
-                              : p.toString().replaceAll('Prefixo.', '') == 'kg'
-                                  ? 'Quilos'
-                                  : 'Litros'),
+                          child: Text(
+                            p.toString().replaceAll('Prefixo.', '') == 'x'
+                                ? 'Unidades'
+                                : p.toString().replaceAll('Prefixo.', '') ==
+                                        'kg'
+                                    ? 'Quilos'
+                                    : 'Litros',
+                          ),
                         );
                       }).toList(),
                       onChanged: (p) {
