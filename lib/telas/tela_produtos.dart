@@ -47,30 +47,41 @@ class TelaProdutos extends StatelessWidget {
               },
             ),
       title: categoria.nome,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          bool exibir = false;
-          if (categoria.id == 'pp') {
-            if (usuario.produtosPersonalizados.length == 0) {
-              return MensagemListaVazia(
-                  'Nenhum produto personalizado encontrado. Utilize o botão no canto inferior direito para criar.');
-            } else {
-              exibir = true;
-            }
-          } else {
-            exibir = true;
-          }
-          return exibir
-              ? Padding(
+      child: categoria.id == 'pp'
+          ? LayoutBuilder(
+              builder: (context, constraints) {
+                if (usuario.produtosPersonalizados.length == 0) {
+                  return MensagemListaVazia(
+                      'Nenhum produto personalizado encontrado. Utilize o botão no canto inferior direito para criar.');
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 30),
+                    child: ListView.builder(
+                      itemCount: usuario.produtosPersonalizados.length,
+                      itemBuilder: (context, index) {
+                        Produto produto = usuario.produtosPersonalizados[index];
+                        return ItemProduto(
+                          produto: produto,
+                          usuario: usuario,
+                          atualizarUsuario: atualizarUsuario,
+                          lista: lista,
+                          valor: lista.verificarExistencia(produto),
+                        );
+                      },
+                    ),
+                  );
+                }
+              },
+            )
+          : LayoutBuilder(
+              builder: (context, constraints) {
+                return Padding(
                   padding: const EdgeInsets.only(bottom: 30),
                   child: ListView.builder(
-                    itemCount: categoria.id == 'pp'
-                        ? usuario.produtosPersonalizados.length
-                        : dados.produtosPorCategoria(categoria).length,
+                    itemCount: dados.produtosPorCategoria(categoria).length,
                     itemBuilder: (context, index) {
-                      Produto produto = categoria.id == 'pp'
-                          ? usuario.produtosPersonalizados[index]
-                          : dados.produtosPorCategoria(categoria)[index];
+                      Produto produto =
+                          dados.produtosPorCategoria(categoria)[index];
                       return ItemProduto(
                         produto: produto,
                         usuario: usuario,
@@ -80,10 +91,9 @@ class TelaProdutos extends StatelessWidget {
                       );
                     },
                   ),
-                )
-              : null;
-        },
-      ),
+                );
+              },
+            ),
     );
   }
 }
