@@ -146,8 +146,11 @@ class _TelaInicioState extends State<TelaInicio> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      FlutterLogo(
-                          size: MediaQuery.of(context).size.width * 0.25),
+                      Icon(
+                        Icons.shopping_cart,
+                        size: MediaQuery.of(context).size.height * 0.25,
+                        color: Theme.of(context).primaryColor,
+                      ),
                       SizedBox(height: 30),
                       Column(
                         mainAxisSize: MainAxisSize.min,
@@ -246,8 +249,11 @@ class _TelaInicioState extends State<TelaInicio> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      FlutterLogo(
-                          size: MediaQuery.of(context).size.width * 0.25),
+                      Icon(
+                        Icons.shopping_cart,
+                        size: MediaQuery.of(context).size.height * 0.25,
+                        color: Theme.of(context).primaryColor,
+                      ),
                       SizedBox(height: 30),
                       Column(
                         mainAxisSize: MainAxisSize.min,

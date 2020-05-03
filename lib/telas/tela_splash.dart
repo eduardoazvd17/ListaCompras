@@ -24,7 +24,11 @@ class _TelaSplashState extends State<TelaSplash> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: FlutterLogo(size: MediaQuery.of(context).size.height * 0.25),
+        child: Icon(
+          Icons.shopping_cart,
+          size: MediaQuery.of(context).size.height * 0.25,
+          color: Theme.of(context).primaryColor,
+        ),
       ),
     );
   }
