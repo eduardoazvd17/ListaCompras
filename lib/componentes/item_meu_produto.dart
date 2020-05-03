@@ -101,7 +101,10 @@ class ItemMeuProduto extends StatelessWidget {
             ],
           ),
         ),
-        Divider(),
+        Divider(
+          endIndent: 10,
+          indent: 10,
+        ),
       ],
     );
   }
