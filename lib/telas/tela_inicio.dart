@@ -148,7 +148,7 @@ class _TelaInicioState extends State<TelaInicio> {
                     children: <Widget>[
                       Icon(
                         Icons.shopping_cart,
-                        size: MediaQuery.of(context).size.height * 0.25,
+                        size: MediaQuery.of(context).size.height * 0.15,
                         color: Theme.of(context).primaryColor,
                       ),
                       SizedBox(height: 30),
@@ -251,7 +251,7 @@ class _TelaInicioState extends State<TelaInicio> {
                     children: <Widget>[
                       Icon(
                         Icons.shopping_cart,
-                        size: MediaQuery.of(context).size.height * 0.25,
+                        size: MediaQuery.of(context).size.height * 0.15,
                         color: Theme.of(context).primaryColor,
                       ),
                       SizedBox(height: 30),

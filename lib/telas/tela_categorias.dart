@@ -5,6 +5,7 @@ import 'package:listacompras/modelos/categoria.dart';
 import 'package:listacompras/modelos/lista.dart';
 import 'package:listacompras/modelos/usuario.dart';
 import 'package:listacompras/telas/tela_produtos.dart';
+import 'package:listacompras/telas/tela_produtos_personalizados.dart';
 import 'package:listacompras/utilitarios/dados.dart';
 
 class TelaCategorias extends StatelessWidget {
@@ -15,16 +16,28 @@ class TelaCategorias extends StatelessWidget {
   TelaCategorias({this.lista, this.atualizarUsuario, this.usuario});
 
   _abrirCategoria(Categoria categoria, BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => TelaProdutos(
-          usuario: usuario,
-          atualizarUsuario: atualizarUsuario,
-          categoria: categoria,
-          lista: lista,
+    if (categoria.id == 'pp') {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => TelaProdutosPersonalizados(
+            usuario: usuario,
+            atualizarUsuario: atualizarUsuario,
+            lista: lista,
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => TelaProdutos(
+            usuario: usuario,
+            atualizarUsuario: atualizarUsuario,
+            categoria: categoria,
+            lista: lista,
+          ),
+        ),
+      );
+    }
   }
 
   @override

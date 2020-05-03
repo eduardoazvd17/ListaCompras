@@ -35,6 +35,8 @@ class _ItemProdutoState extends State<ItemProduto> {
             overflow: TextOverflow.ellipsis,
           ),
           value: valor,
+          controlAffinity: ListTileControlAffinity.leading,
+          activeColor: Theme.of(context).primaryColor,
           onChanged: (valor) {
             setState(() {
               this.valor = valor;

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:listacompras/modelos/categoria.dart';
 import 'package:listacompras/modelos/produto.dart';
 
@@ -286,5 +287,18 @@ class Dados {
 
   List<Produto> produtosPorCategoria(Categoria c) {
     return produtos.where((pr) => pr.idCategoria == c.id).toList();
+  }
+
+  List<DropdownMenuItem<String>> categoriasDropDown() {
+    List<DropdownMenuItem<String>> lista = [];
+    for (var c in categorias) {
+      if (c.id != 'pp') {
+        lista.add(DropdownMenuItem(
+          value: c.id,
+          child: Text(c.nome),
+        ));
+      }
+    }
+    return lista;
   }
 }

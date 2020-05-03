@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:listacompras/modelos/produto.dart';
 import 'package:listacompras/modelos/usuario.dart';
@@ -8,30 +7,50 @@ import 'package:listacompras/utilitarios/dados.dart';
 class FormProdutoPersonalizado extends StatefulWidget {
   final Usuario usuario;
   final Function atualizarUsuario;
+  final Function atualizarProdutosPersonalizados;
+  final Produto produto;
   FormProdutoPersonalizado({
     this.atualizarUsuario,
     this.usuario,
+    this.produto,
+    this.atualizarProdutosPersonalizados,
   });
 
   @override
-  _FormProdutoPersonalizadoState createState() =>
-      _FormProdutoPersonalizadoState();
+  _FormProdutoPersonalizadoState createState() => produto == null
+      ? _FormProdutoPersonalizadoState(
+          TextEditingController(),
+          Dados().categorias.first.id,
+        )
+      : _FormProdutoPersonalizadoState(
+          TextEditingController(text: produto.nome),
+          Dados().categorias.where((c) => c.id == produto.idCategoria).first.id,
+        );
 }
 
 class _FormProdutoPersonalizadoState extends State<FormProdutoPersonalizado> {
-  TextEditingController nomeController = TextEditingController();
-  String idCategoria;
+  final dados = Dados();
+  TextEditingController nomeController;
+  String idCategoriaSelecionada;
+  _FormProdutoPersonalizadoState(
+      this.nomeController, this.idCategoriaSelecionada);
 
   _enviar(BuildContext context) {
-    if (nomeController.text.isEmpty || idCategoria == null) {
+    if (nomeController.text.isEmpty) {
       return;
     }
 
     String nome = nomeController.text;
-    String id = 'pp' + nome + Random().nextInt(999999).toString();
-    Produto p = Produto(id: id, idCategoria: idCategoria, nome: nome);
+    String id = widget.produto == null
+        ? 'pp' + nome + Random().nextInt(999999).toString()
+        : widget.produto.id;
+    Produto p =
+        Produto(id: id, idCategoria: idCategoriaSelecionada, nome: nome);
     widget.usuario.adicionarProdutoPersonalizado(p);
     widget.atualizarUsuario(widget.usuario);
+    if (widget.produto != null) {
+      widget.atualizarProdutosPersonalizados();
+    }
     Navigator.of(context).pop();
   }
 
@@ -47,7 +66,7 @@ class _FormProdutoPersonalizadoState extends State<FormProdutoPersonalizado> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Novo Produto',
+                widget.produto == null ? 'Novo Produto' : 'Editar Produto',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -70,22 +89,16 @@ class _FormProdutoPersonalizadoState extends State<FormProdutoPersonalizado> {
                     style: TextStyle(fontSize: 16),
                   ),
                   DropdownButton(
-                      value: idCategoria,
-                      items: Dados().categorias.map((c) {
-                        if (c.id != 'pp') {
-                          return DropdownMenuItem(
-                            value: c.id,
-                            child: Text(c.nome),
-                          );
-                        } else {
-                          return null;
-                        }
-                      }).toList(),
-                      onChanged: (c) {
-                        setState(() {
-                          idCategoria = c;
-                        });
-                      }),
+                    value: idCategoriaSelecionada,
+                    items: dados.categoriasDropDown(),
+                    onChanged: (c) {
+                      setState(
+                        () {
+                          idCategoriaSelecionada = c;
+                        },
+                      );
+                    },
+                  ),
                 ],
               ),
               SizedBox(height: 10),
@@ -96,7 +109,7 @@ class _FormProdutoPersonalizadoState extends State<FormProdutoPersonalizado> {
                   FlatButton(
                       onPressed: () => _enviar(context),
                       child: Text(
-                        'Enviar',
+                        widget.produto == null ? 'Enviar' : 'Salvar',
                         style: TextStyle(color: Theme.of(context).accentColor),
                       ))
                 ],

@@ -26,7 +26,7 @@ class _TelaSplashState extends State<TelaSplash> {
       body: Center(
         child: Icon(
           Icons.shopping_cart,
-          size: MediaQuery.of(context).size.height * 0.25,
+          size: MediaQuery.of(context).size.height * 0.20,
           color: Theme.of(context).primaryColor,
         ),
       ),
