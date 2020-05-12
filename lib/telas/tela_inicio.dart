@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:listacompras/componentes/form_cadastro.dart';
 import 'package:listacompras/modelos/usuario.dart';
@@ -17,7 +20,7 @@ class TelaInicio extends StatefulWidget {
 class _TelaInicioState extends State<TelaInicio> {
   final emailController = TextEditingController();
 
-  _entrar(bool isAutomatico) async {
+  _entrar() async {
     String email = emailController.text.trim();
 
     if (email.isEmpty) {
@@ -73,6 +76,32 @@ class _TelaInicioState extends State<TelaInicio> {
       },
     );
 
+    var conn = await Connectivity().checkConnectivity();
+    if (conn == ConnectivityResult.none) {
+      Navigator.of(context).pop();
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Conexão Indisponível'),
+              content: Text(
+                  'Sem conexão com a internet, ative o wifi ou os dados móveis para continuar.'),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    'Ok',
+                    style: TextStyle(color: Theme.of(context).accentColor),
+                  ),
+                ),
+              ],
+            );
+          });
+      return;
+    }
+
     DocumentSnapshot doc =
         await Firestore.instance.collection('usuarios').document(email).get();
 
@@ -107,36 +136,20 @@ class _TelaInicioState extends State<TelaInicio> {
 
     Navigator.of(context).pop();
 
-    if (isAutomatico) {
-      widget.atualizarUsuario(u);
-    } else {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (_) => TelaPin(
-            usuario: u,
-            atualizarUsuario: widget.atualizarUsuario,
-            pin: doc['pin'],
-          ),
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => TelaPin(
+          usuario: u,
+          atualizarUsuario: widget.atualizarUsuario,
+          pin: doc['pin'],
         ),
-      );
-    }
+      ),
+    );
   }
 
   int i = 0;
   @override
   Widget build(BuildContext context) {
-    if (widget.usuario == null) {
-      SharedPreferences.getInstance().then((prefs) {
-        if (i == 0) {
-          i++;
-          String email = prefs.getString('email');
-          if (email != null || email.isNotEmpty) {
-            emailController.text = email;
-            _entrar(true);
-          }
-        }
-      });
-    }
     return LayoutBuilder(
       builder: (context, constraints) {
         return widget.usuario == null
@@ -202,7 +215,7 @@ class _TelaInicioState extends State<TelaInicio> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
                                   FlatButton(
-                                    onPressed: () => _entrar(false),
+                                    onPressed: () => _entrar(),
                                     child: Text(
                                       'Entrar',
                                       style: TextStyle(

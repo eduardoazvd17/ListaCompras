@@ -1,5 +1,11 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:listacompras/modelos/usuario.dart';
 import 'package:listacompras/telas/tela_navegacao.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TelaSplash extends StatefulWidget {
   @override
@@ -10,14 +16,36 @@ class _TelaSplashState extends State<TelaSplash> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) => TelaNavegacao(null),
-        ),
-      );
+    _isLogado().then((u) {
+      Future.delayed(Duration(seconds: 1, milliseconds: 500), () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => TelaNavegacao(u),
+          ),
+        );
+      });
     });
+  }
+
+  Future<Usuario> _isLogado() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String email = prefs.getString('email');
+    var conn = await Connectivity().checkConnectivity();
+    if (email == null || email.isEmpty) {
+      return null;
+    } else {
+      if (conn == ConnectivityResult.none) {
+        var usuarioJS = prefs.getString('usuario');
+        return Usuario.fromJson(json.decode(usuarioJS));
+      } else {
+        var doc = await Firestore.instance
+            .collection('usuarios')
+            .document(email)
+            .get();
+        return Usuario.fromJson(doc['dados']);
+      }
+    }
   }
 
   @override

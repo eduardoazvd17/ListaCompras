@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:listacompras/componentes/form_lista.dart';
@@ -26,7 +28,7 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
           .collection('usuarios')
           .document(u.email)
           .updateData({'dados': u.toJson()});
-      prefs.setString('usuario', u.toJson().toString());
+      prefs.setString('usuario', json.encode(u.toJson()));
     } else {
       prefs.setString('email', '');
       prefs.setString('usuario', '');
