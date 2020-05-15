@@ -12,9 +12,11 @@ class ItemMeuProduto extends StatelessWidget {
   Widget _formarSubtitulo(Descricao d) {
     String qtd = '', unt = '', tot = '';
     bool q = false, u = false, t = false;
-
+    String qtdString = d.prefixo == 'x'
+        ? d.quantidade.toStringAsFixed(0)
+        : d.quantidade.toStringAsFixed(1);
     if (d.quantidade != 0) {
-      qtd = 'Quantidade: ' + d.quantidade.toStringAsFixed(1) + d.prefixo;
+      qtd = 'Quantidade: ' + qtdString + d.prefixo;
       q = true;
     }
     if (d.preco != null || double.tryParse(d.preco.toString()) != null) {

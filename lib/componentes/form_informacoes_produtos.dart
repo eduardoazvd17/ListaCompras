@@ -147,7 +147,9 @@ class _FormInformacoesProdutosState extends State<FormInformacoesProdutos> {
                         }
                       }),
                   Text(
-                    quantidade.toStringAsFixed(1),
+                    prefixo == 'x'
+                        ? quantidade.toStringAsFixed(0)
+                        : quantidade.toStringAsFixed(1),
                     style: TextStyle(fontSize: 16),
                   ),
                   IconButton(
