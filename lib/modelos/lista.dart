@@ -25,7 +25,9 @@ class Lista {
   double calcularGastos() {
     double total = 0;
     for (var p in produtos) {
-      total += (p.descricao.quantidade * p.descricao.preco);
+      if (p.descricao != null) {
+        total += (p.descricao.quantidade * p.descricao.preco);
+      }
     }
     return total;
   }
@@ -33,7 +35,7 @@ class Lista {
   Lista.fromJson(Map<String, dynamic> json) {
     this.id = json['id'];
     this.nome = json['nome'];
-    this.data = (json['data'] as Timestamp).toDate().toString();
+    this.data = json['data'];
     List<Produto> listaProdutos = [];
     for (var p in json['produtos']) {
       listaProdutos.add(Produto.fromJson(p));

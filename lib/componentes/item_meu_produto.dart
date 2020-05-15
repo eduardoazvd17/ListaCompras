@@ -14,7 +14,7 @@ class ItemMeuProduto extends StatelessWidget {
     bool q = false, u = false, t = false;
 
     if (d.quantidade != 0) {
-      qtd = 'Quantidade: ' + d.quantidade.toString() + d.prefixo;
+      qtd = 'Quantidade: ' + d.quantidade.toStringAsFixed(1) + d.prefixo;
       q = true;
     }
     if (d.preco != null || double.tryParse(d.preco.toString()) != null) {

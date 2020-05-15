@@ -42,7 +42,7 @@ class FormInformacoesProdutos extends StatefulWidget {
 class _FormInformacoesProdutosState extends State<FormInformacoesProdutos> {
   TextEditingController descricaoController;
   String prefixo;
-  int quantidade;
+  double quantidade;
   TextEditingController precoController;
   _FormInformacoesProdutosState(this.descricaoController, this.quantidade,
       this.precoController, this.prefixo);
@@ -97,39 +97,6 @@ class _FormInformacoesProdutosState extends State<FormInformacoesProdutos> {
               Row(
                 children: <Widget>[
                   Text(
-                    'Quantidade: ',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  IconButton(
-                      icon: Icon(Icons.add),
-                      onPressed: () {
-                        setState(() {
-                          if (quantidade >= 99) {
-                            return;
-                          }
-                          quantidade++;
-                        });
-                      }),
-                  Text(
-                    quantidade.toString(),
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  IconButton(
-                      icon: Icon(Icons.remove),
-                      onPressed: () {
-                        setState(() {
-                          if (quantidade <= 0) {
-                            return;
-                          }
-                          quantidade--;
-                        });
-                      }),
-                ],
-              ),
-              SizedBox(height: 10),
-              Row(
-                children: <Widget>[
-                  Text(
                     'Tipo de Quantidade: ',
                     style: TextStyle(fontSize: 16),
                   ),
@@ -151,7 +118,53 @@ class _FormInformacoesProdutosState extends State<FormInformacoesProdutos> {
                       onChanged: (p) {
                         setState(() {
                           prefixo = p;
+                          quantidade = 0;
                         });
+                      }),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: <Widget>[
+                  Text(
+                    'Quantidade: ',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        if (quantidade >= 99) {
+                          return;
+                        }
+                        if (prefixo == 'x') {
+                          setState(() {
+                            quantidade++;
+                          });
+                        } else {
+                          setState(() {
+                            quantidade += 0.10;
+                          });
+                        }
+                      }),
+                  Text(
+                    quantidade.toStringAsFixed(1),
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  IconButton(
+                      icon: Icon(Icons.remove),
+                      onPressed: () {
+                        if (quantidade <= 0) {
+                          return;
+                        }
+                        if (prefixo == 'x') {
+                          setState(() {
+                            quantidade--;
+                          });
+                        } else {
+                          setState(() {
+                            quantidade -= 0.10;
+                          });
+                        }
                       }),
                 ],
               ),
