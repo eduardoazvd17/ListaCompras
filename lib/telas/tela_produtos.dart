@@ -31,9 +31,10 @@ class TelaProdutos extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(bottom: 30),
             child: ListView.builder(
-              itemCount: dados.produtosPorCategoria(categoria).length,
+              itemCount: dados.produtosPorCategoria(usuario, categoria).length,
               itemBuilder: (context, index) {
-                Produto produto = dados.produtosPorCategoria(categoria)[index];
+                Produto produto =
+                    dados.produtosPorCategoria(usuario, categoria)[index];
                 return ItemProduto(
                   produto: produto,
                   usuario: usuario,

@@ -29,7 +29,7 @@ class _TelaMeusProdutosState extends State<TelaMeusProdutos> {
   Widget build(BuildContext context) {
     _atualizarLista();
     return Layout(
-      title: '${lista.nome}',
+      title: '${lista.nome} - R\$' + lista.calcularGastos().toStringAsFixed(2),
       child: LayoutBuilder(
         builder: (context, constraints) {
           return lista.produtos.length == 0

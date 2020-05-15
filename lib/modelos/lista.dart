@@ -1,5 +1,4 @@
 import 'dart:collection';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:listacompras/modelos/produto.dart';
 import 'package:listacompras/utilitarios/dados.dart';
@@ -7,7 +6,7 @@ import 'package:listacompras/utilitarios/dados.dart';
 class Lista {
   String id;
   String nome;
-  DateTime data = DateTime.now();
+  String data = DateTime.now().toString();
   List<Produto> produtos = [];
 
   Map<String, dynamic> toJson() {
@@ -23,10 +22,18 @@ class Lista {
     };
   }
 
+  double calcularGastos() {
+    double total = 0;
+    for (var p in produtos) {
+      total += (p.descricao.quantidade * p.descricao.preco);
+    }
+    return total;
+  }
+
   Lista.fromJson(Map<String, dynamic> json) {
     this.id = json['id'];
     this.nome = json['nome'];
-    this.data = (json['data'] as Timestamp).toDate();
+    this.data = (json['data'] as Timestamp).toDate().toString();
     List<Produto> listaProdutos = [];
     for (var p in json['produtos']) {
       listaProdutos.add(Produto.fromJson(p));

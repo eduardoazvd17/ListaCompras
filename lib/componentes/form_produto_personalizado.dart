@@ -48,9 +48,7 @@ class _FormProdutoPersonalizadoState extends State<FormProdutoPersonalizado> {
         Produto(id: id, idCategoria: idCategoriaSelecionada, nome: nome);
     widget.usuario.adicionarProdutoPersonalizado(p);
     widget.atualizarUsuario(widget.usuario);
-    if (widget.produto != null) {
-      widget.atualizarProdutosPersonalizados();
-    }
+    widget.atualizarProdutosPersonalizados();
     Navigator.of(context).pop();
   }
 

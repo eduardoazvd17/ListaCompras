@@ -74,7 +74,7 @@ class _FormInformacoesProdutosState extends State<FormInformacoesProdutos> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Descrição do Produto',
+                '${widget.produto.nome}',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

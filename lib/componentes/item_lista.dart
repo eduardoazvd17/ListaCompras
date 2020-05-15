@@ -8,8 +8,7 @@ class ItemLista extends StatelessWidget {
   final Function onTap;
   ItemLista({this.lista, this.onDeletar, this.onEditar, this.onTap});
 
-  String _formatarData(DateTime data) {
-    String string = data.toString();
+  String _formatarData(String string) {
     String dia = string[8].toString() + string[9].toString();
     String mes = string[5].toString() + string[6].toString();
     String ano = string[0].toString() +
@@ -29,7 +28,9 @@ class ItemLista extends StatelessWidget {
             lista.nome,
             overflow: TextOverflow.ellipsis,
           ),
-          subtitle: Text(_formatarData(lista.data)),
+          subtitle: Text('Data: ' +
+              _formatarData(lista.data) +
+              '\nTotal: R\$${lista.calcularGastos().toStringAsFixed(2)}'),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[

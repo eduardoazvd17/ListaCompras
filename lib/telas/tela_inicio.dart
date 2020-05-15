@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:listacompras/componentes/form_cadastro.dart';
 import 'package:listacompras/modelos/usuario.dart';
 import 'package:listacompras/telas/tela_pin.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TelaInicio extends StatefulWidget {
   final Usuario usuario;
@@ -147,7 +144,6 @@ class _TelaInicioState extends State<TelaInicio> {
     );
   }
 
-  int i = 0;
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(

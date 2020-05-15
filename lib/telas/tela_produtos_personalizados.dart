@@ -53,6 +53,7 @@ class _TelaProdutosPersonalizadosState
             builder: (_) => FormProdutoPersonalizado(
               usuario: widget.usuario,
               atualizarUsuario: widget.atualizarUsuario,
+              atualizarProdutosPersonalizados: _atualizarProdutosPersonalizados,
               produto: null,
             ),
           );

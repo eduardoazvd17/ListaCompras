@@ -17,8 +17,7 @@ class _FormListaState extends State<FormLista> {
   TextEditingController listaController;
   _FormListaState(this.listaController);
 
-  String _formatarData(DateTime data) {
-    String string = data.toString();
+  String _formatarData(String string) {
     String dia = string[8].toString() + string[9].toString();
     String mes = string[5].toString() + string[6].toString();
     String ano = string[0].toString() +
@@ -59,7 +58,7 @@ class _FormListaState extends State<FormLista> {
               SizedBox(height: 10),
               Text(
                 widget.lista == null
-                    ? 'Data de criação: ${_formatarData(DateTime.now())}'
+                    ? 'Data de criação: ${_formatarData(DateTime.now().toString())}'
                     : 'Data de criação: ${_formatarData(widget.lista.data)}',
                 style: TextStyle(color: Colors.grey),
               ),

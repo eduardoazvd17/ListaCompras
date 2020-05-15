@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:listacompras/modelos/categoria.dart';
 import 'package:listacompras/modelos/produto.dart';
+import 'package:listacompras/modelos/usuario.dart';
 
 class Dados {
   List<Categoria> categorias = [
@@ -285,8 +286,19 @@ class Dados {
     );
   }
 
-  List<Produto> produtosPorCategoria(Categoria c) {
-    return produtos.where((pr) => pr.idCategoria == c.id).toList();
+  List<Produto> produtosPorCategoria(Usuario u, Categoria c) {
+    List<Produto> ps = produtos.where((pr) => pr.idCategoria == c.id).toList();
+    for (var p in u.produtosPersonalizados) {
+      if (p.idCategoria == c.id) {
+        ps.add(p);
+      }
+    }
+    ps.sort(
+      (a, b) => a.nome.toLowerCase().compareTo(
+            b.nome.toLowerCase(),
+          ),
+    );
+    return ps;
   }
 
   List<DropdownMenuItem<String>> categoriasDropDown() {
