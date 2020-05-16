@@ -52,10 +52,31 @@ class _TelaSplashState extends State<TelaSplash> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Icon(
-          Icons.shopping_cart,
-          size: MediaQuery.of(context).size.height * 0.20,
-          color: Theme.of(context).primaryColor,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              Icons.shopping_cart,
+              size: MediaQuery.of(context).size.height * 0.20,
+              color: Theme.of(context).primaryColor,
+            ),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                CircularProgressIndicator(),
+                Text(
+                  'Carregando...',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
