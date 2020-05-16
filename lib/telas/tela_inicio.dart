@@ -69,6 +69,19 @@ class _TelaInicioState extends State<TelaInicio> {
     );
   }
 
+  String _formarComunicacao() {
+    int horaAtual = DateTime.now().hour;
+    if (horaAtual >= 0 && horaAtual <= 5) {
+      return 'Boa madrugada.';
+    } else if (horaAtual >= 6 && horaAtual <= 11) {
+      return 'Bom dia.';
+    } else if (horaAtual >= 12 && horaAtual <= 17) {
+      return 'Boa tarde.';
+    } else {
+      return 'Boa noite.';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -194,17 +207,147 @@ class _TelaInicioState extends State<TelaInicio> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            'Olá ${widget.usuario.nome.split(' ').first}! Bem vindo de volta.',
+                            'Olá ${widget.usuario.nome.split(' ').first}! ${_formarComunicacao()}',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              '',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 15),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 5),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                SizedBox(height: 15),
+                                Divider(),
+                                SizedBox(height: 15),
+                                Center(
+                                  child: Text(
+                                    'Aqui vão algumas dicas de usabilidade do nosso app:',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 15),
+                                Divider(),
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  elevation: 5,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(15),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          'Criação de listas',
+                                          style: TextStyle(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        SizedBox(height: 5),
+                                        Text(
+                                          'Para criar suas listas de compras, utilize a barra de navegação na parte inferior do app para ir à tela de listas, clique no botão flutuante no canto inferior direito e preencha o forumlário para criar sua lista.',
+                                          textAlign: TextAlign.justify,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  elevation: 5,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(15),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          'Adição de produtos',
+                                          style: TextStyle(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        SizedBox(height: 5),
+                                        Text(
+                                          'Para adicionar produtos à lista, clique na lista desejada e após clique no botão flutuante para exibir a tela de categorias, após isso selecione a categoria desejada e marque os produtos para ser adicionado à lista.',
+                                          textAlign: TextAlign.justify,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  elevation: 5,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(15),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          'Produtos personalizados',
+                                          style: TextStyle(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        SizedBox(height: 5),
+                                        Text(
+                                          'Caso não encontre um produto específico, você poderá adicioná-lo manualmente. Para fazer isso, na tela de categoria role a lista até o final e selecione a categoria "Produtos Personalizados", após isso clique no botão flutuante e preencha o formulário para adicionar. O produto aparecerá nessa categoria e também na categoria em que foi preenchida no formulário.',
+                                          textAlign: TextAlign.justify,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  elevation: 5,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(15),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          'Informações Adicionais',
+                                          style: TextStyle(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        SizedBox(height: 5),
+                                        Text(
+                                          'Para adicionar informações adicionais aos produtos como descrição, quantidade e preço, na sua lista, clique no icone de mais opções do produto desejado e preencha o formulário.',
+                                          textAlign: TextAlign.justify,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],

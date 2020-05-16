@@ -62,19 +62,11 @@ class _TelaSplashState extends State<TelaSplash> {
               size: MediaQuery.of(context).size.height * 0.20,
               color: Theme.of(context).primaryColor,
             ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                CircularProgressIndicator(),
-                Text(
-                  'Carregando...',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-              ],
+            SizedBox(height: 15),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.25),
+              child: LinearProgressIndicator(),
             ),
           ],
         ),

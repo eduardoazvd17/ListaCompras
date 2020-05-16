@@ -95,7 +95,7 @@ class _FormCadastroState extends State<FormCadastro> {
                         return;
                       }
 
-                      if (v.isEmail(email)) {
+                      if (!v.isEmail(email)) {
                         v.mostrarDialogoOK('E-mail Inválido',
                             'Digite um endereço de e-mail válido.');
                         return;
