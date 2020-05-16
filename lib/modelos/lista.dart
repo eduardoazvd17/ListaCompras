@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:listacompras/modelos/produto.dart';
 import 'package:listacompras/utilitarios/dados.dart';
 
