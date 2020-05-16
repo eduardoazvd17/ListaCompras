@@ -4,6 +4,7 @@ import 'package:listacompras/modelos/lista.dart';
 import 'package:listacompras/modelos/produto.dart';
 import 'package:listacompras/modelos/usuario.dart';
 import 'package:listacompras/utilitarios/dados.dart';
+import 'package:listacompras/utilitarios/validador.dart';
 
 class ItemProdutoPersonalizado extends StatefulWidget {
   final Usuario usuario;
@@ -82,40 +83,22 @@ class _ItemProdutoPersonalizadoState extends State<ItemProdutoPersonalizado> {
                   color: Colors.red,
                 ),
                 onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text('Excluir Produto'),
-                          content: Text(
-                              'Deseja realmente excluir o produto personalizado: ${widget.produto.nome}?'),
-                          actions: <Widget>[
-                            FlatButton(
-                                onPressed: () {
-                                  widget.usuario.removerProdutoPersonalizado(
-                                      widget.produto);
-                                  widget.atualizarUsuario(widget.usuario);
-                                  widget.atualizarProdutosPersonalizados();
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text(
-                                  'Sim',
-                                  style: TextStyle(
-                                      color: Theme.of(context).primaryColor),
-                                )),
-                            FlatButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text(
-                                'Não',
-                                style: TextStyle(
-                                    color: Theme.of(context).primaryColor),
-                              ),
-                            ),
-                          ],
-                        );
-                      });
+                  var v = Validador(context);
+                  v.mostrarDialogoSN(
+                    titulo: 'Excluir Produto',
+                    mensagem:
+                        'Deseja realmente excluir o produto personalizado: ${widget.produto.nome}?',
+                    sim: () {
+                      widget.usuario
+                          .removerProdutoPersonalizado(widget.produto);
+                      widget.atualizarUsuario(widget.usuario);
+                      widget.atualizarProdutosPersonalizados();
+                      Navigator.of(context).pop();
+                    },
+                    nao: () {
+                      Navigator.of(context).pop();
+                    },
+                  );
                 },
               ),
             ],

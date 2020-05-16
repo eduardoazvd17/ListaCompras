@@ -5,6 +5,7 @@ import 'package:listacompras/modelos/lista.dart';
 import 'package:listacompras/modelos/produto.dart';
 import 'package:listacompras/modelos/usuario.dart';
 import 'package:listacompras/utilitarios/dados.dart';
+import 'package:listacompras/utilitarios/validador.dart';
 
 class ListaMeusProdutos extends StatelessWidget {
   final Usuario usuario;
@@ -46,38 +47,22 @@ class ListaMeusProdutos extends StatelessWidget {
   }
 
   _deletarProduto(Produto produto, BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Excluir Produto'),
-            content: Text(
-                'Deseja realmente excluir o produto: ${produto.nome}?\n\nCategoria: ${Dados().categorias.where((c) => c.id == produto.idCategoria).toList()[0].nome}'),
-            actions: <Widget>[
-              FlatButton(
-                  onPressed: () {
-                    lista.removerProduto(produto);
-                    usuario.adicionarLista(lista);
-                    atualizarUsuario(usuario);
-                    atualizarLista();
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'Sim',
-                    style: TextStyle(color: Theme.of(context).primaryColor),
-                  )),
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text(
-                  'Não',
-                  style: TextStyle(color: Theme.of(context).primaryColor),
-                ),
-              ),
-            ],
-          );
-        });
+    var v = Validador(context);
+    v.mostrarDialogoSN(
+      titulo: 'Excluir Produto',
+      mensagem:
+          'Deseja realmente excluir o produto: ${produto.nome}?\n\nCategoria: ${Dados().categorias.where((c) => c.id == produto.idCategoria).toList()[0].nome}',
+      sim: () {
+        lista.removerProduto(produto);
+        usuario.adicionarLista(lista);
+        atualizarUsuario(usuario);
+        atualizarLista();
+        Navigator.of(context).pop();
+      },
+      nao: () {
+        Navigator.of(context).pop();
+      },
+    );
   }
 
   @override

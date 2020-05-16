@@ -4,6 +4,7 @@ import 'package:listacompras/componentes/item_lista.dart';
 import 'package:listacompras/modelos/lista.dart';
 import 'package:listacompras/modelos/usuario.dart';
 import 'package:listacompras/telas/tela_meus_produtos.dart';
+import 'package:listacompras/utilitarios/validador.dart';
 
 class ListaListas extends StatelessWidget {
   final Usuario usuario;
@@ -40,34 +41,19 @@ class ListaListas extends StatelessWidget {
   }
 
   _deletarLista(Lista lista, BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Excluir Lista'),
-            content: Text('Deseja realmente excluir a lista: ${lista.nome}?'),
-            actions: <Widget>[
-              FlatButton(
-                  onPressed: () {
-                    usuario.removerLista(lista);
-                    atualizarUsuario(usuario);
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'Sim',
-                    style: TextStyle(color: Theme.of(context).accentColor),
-                  )),
-              FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'Não',
-                    style: TextStyle(color: Theme.of(context).accentColor),
-                  )),
-            ],
-          );
-        });
+    var v = Validador(context);
+    v.mostrarDialogoSN(
+      titulo: 'Excluir Lista',
+      mensagem: 'Deseja realmente excluir a lista: ${lista.nome}?',
+      sim: () {
+        usuario.removerLista(lista);
+        atualizarUsuario(usuario);
+        Navigator.of(context).pop();
+      },
+      nao: () {
+        Navigator.of(context).pop();
+      },
+    );
   }
 
   @override

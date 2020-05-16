@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:listacompras/componentes/form_cadastro.dart';
 import 'package:listacompras/modelos/usuario.dart';
 import 'package:listacompras/telas/tela_pin.dart';
+import 'package:listacompras/utilitarios/validador.dart';
 
 class TelaInicio extends StatefulWidget {
   final Usuario usuario;
@@ -18,84 +19,26 @@ class _TelaInicioState extends State<TelaInicio> {
   final emailController = TextEditingController();
 
   _entrar() async {
+    var v = Validador(context);
     String email = emailController.text.trim();
 
-    if (email.isEmpty) {
+    if (v.isVazio(email)) {
       return;
     }
 
-    if (!email.contains(RegExp('@.'))) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text('E-mail Inválido'),
-              content: Text('Digite um endereço de e-mail válido.'),
-              actions: <Widget>[
-                FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'Ok',
-                    style: TextStyle(color: Theme.of(context).accentColor),
-                  ),
-                ),
-              ],
-            );
-          });
+    if (!v.isEmail(email)) {
+      v.mostrarDialogoOK(
+          'E-mail Inválido', 'Digite um endereço de e-mail válido.');
       return;
     }
 
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: new Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                new CircularProgressIndicator(),
-                SizedBox(height: 15),
-                new Text(
-                  "Entrando...",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
+    v.mostrarCarregamento('Entrando...');
 
     var conn = await Connectivity().checkConnectivity();
     if (conn == ConnectivityResult.none) {
-      Navigator.of(context).pop();
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text('Conexão Indisponível'),
-              content: Text(
-                  'Sem conexão com a internet, ative o wifi ou os dados móveis para continuar.'),
-              actions: <Widget>[
-                FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'Ok',
-                    style: TextStyle(color: Theme.of(context).accentColor),
-                  ),
-                ),
-              ],
-            );
-          });
+      v.ocultarCarregamento();
+      v.mostrarDialogoOK('Conexão Indisponível',
+          'Sem conexão com a internet, ative o wifi ou os dados móveis para continuar.');
       return;
     }
 
@@ -103,27 +46,9 @@ class _TelaInicioState extends State<TelaInicio> {
         await Firestore.instance.collection('usuarios').document(email).get();
 
     if (doc.data == null) {
-      Navigator.of(context).pop();
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text('E-mail Não Cadastrado'),
-              content: Text(
-                  'Este endereço de e-mail não está cadastrado, utilize o formulário de cadastro clicando em "Ainda não possui uma conta?".'),
-              actions: <Widget>[
-                FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'Ok',
-                    style: TextStyle(color: Theme.of(context).accentColor),
-                  ),
-                ),
-              ],
-            );
-          });
+      v.ocultarCarregamento();
+      v.mostrarDialogoOK('E-mail Não Cadastrado',
+          'Este endereço de e-mail não está cadastrado, utilize o formulário de cadastro clicando em "Ainda não possui uma conta?".');
       return;
     }
 
@@ -131,7 +56,7 @@ class _TelaInicioState extends State<TelaInicio> {
       doc['dados'],
     );
 
-    Navigator.of(context).pop();
+    v.ocultarCarregamento();
 
     Navigator.of(context).push(
       MaterialPageRoute(

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:listacompras/modelos/usuario.dart';
+import 'package:listacompras/utilitarios/validador.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FormCadastro extends StatefulWidget {
@@ -81,65 +82,28 @@ class _FormCadastroState extends State<FormCadastro> {
                 children: <Widget>[
                   FlatButton(
                     onPressed: () async {
+                      var v = Validador(context);
                       String email = emailController.text.trim();
                       String nome = nomeController.text;
                       String pin = pinController.text;
                       String confirmacaoPin = confirmacaoPinController.text;
 
-                      if (email.isEmpty ||
-                          nome.isEmpty ||
-                          pin.isEmpty ||
-                          confirmacaoPin.isEmpty) {
+                      if (v.isVazio(email) ||
+                          v.isVazio(nome) ||
+                          v.isVazio(pin) ||
+                          v.isVazio(confirmacaoPin)) {
                         return;
                       }
 
-                      if (!email.contains(RegExp('@.'))) {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text('E-mail Inválido'),
-                                content: Text(
-                                    'Digite um endereço de e-mail válido.'),
-                                actions: <Widget>[
-                                  FlatButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(
-                                      'Ok',
-                                      style: TextStyle(
-                                          color: Theme.of(context).accentColor),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            });
+                      if (v.isEmail(email)) {
+                        v.mostrarDialogoOK('E-mail Inválido',
+                            'Digite um endereço de e-mail válido.');
                         return;
                       }
 
                       if (pin != confirmacaoPin) {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text('Pins Diferentes'),
-                                content: Text(
-                                    'Os campos pin e confirmação dde pin devem ser iguais.'),
-                                actions: <Widget>[
-                                  FlatButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(
-                                      'Ok',
-                                      style: TextStyle(
-                                          color: Theme.of(context).accentColor),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            });
+                        v.mostrarDialogoOK('Pins Diferentes',
+                            'Os campos pin e confirmação dde pin devem ser iguais.');
                         return;
                       }
 
