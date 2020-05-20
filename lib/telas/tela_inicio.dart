@@ -1,7 +1,9 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:listacompras/componentes/form_cadastro.dart';
+import 'package:listacompras/componentes/item_ajuda.dart';
 import 'package:listacompras/modelos/usuario.dart';
 import 'package:listacompras/telas/tela_pin.dart';
 import 'package:listacompras/utilitarios/validador.dart';
@@ -16,6 +18,25 @@ class TelaInicio extends StatefulWidget {
 }
 
 class _TelaInicioState extends State<TelaInicio> {
+  int _carouselIndex = 0;
+  var _carouselItems = [
+    ItemAjuda(
+      'Criação de listas',
+      'Para criar suas listas de compras, utilize a barra de navegação na parte inferior do app para ir à tela de listas, clique no botão flutuante no canto inferior direito e preencha o forumlário para criar sua lista.',
+    ),
+    ItemAjuda(
+      'Adição de produtos',
+      'Para adicionar produtos à lista, clique na lista desejada e após clique no botão flutuante para exibir a tela de categorias, após isso selecione a categoria desejada e marque os produtos para ser adicionado à lista.',
+    ),
+    ItemAjuda(
+      'Produtos personalizados',
+      'Caso não encontre um produto específico, você poderá adicioná-lo manualmente. Para fazer isso, na tela de categoria role a lista até o final e selecione a categoria "Produtos Personalizados", após isso clique no botão flutuante e preencha o formulário para adicionar. O produto aparecerá nessa categoria e também na categoria em que foi preenchida no formulário.',
+    ),
+    ItemAjuda(
+      'Informações Adicionais',
+      'Para adicionar informações adicionais aos produtos como descrição, quantidade e preço, na sua lista, clique no icone de mais opções do produto desejado e preencha o formulário.',
+    ),
+  ];
   final emailController = TextEditingController();
 
   _entrar() async {
@@ -223,7 +244,7 @@ class _TelaInicioState extends State<TelaInicio> {
                                 SizedBox(height: 15),
                                 Center(
                                   child: Text(
-                                    'Aqui vão algumas dicas de usabilidade do nosso app:',
+                                    'Precisa de ajuda? Utilize o slide abaixo.',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                     ),
@@ -231,121 +252,39 @@ class _TelaInicioState extends State<TelaInicio> {
                                 ),
                                 SizedBox(height: 15),
                                 Divider(),
-                                Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                  elevation: 5,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(15),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          'Criação de listas',
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                        SizedBox(height: 5),
-                                        Text(
-                                          'Para criar suas listas de compras, utilize a barra de navegação na parte inferior do app para ir à tela de listas, clique no botão flutuante no canto inferior direito e preencha o forumlário para criar sua lista.',
-                                          textAlign: TextAlign.justify,
-                                        ),
-                                      ],
-                                    ),
+                                SizedBox(height: 15),
+                                CarouselSlider(
+                                  items: _carouselItems,
+                                  options: CarouselOptions(
+                                    onPageChanged: (index, reason) {
+                                      setState(() {
+                                        _carouselIndex = index;
+                                      });
+                                    },
+                                    autoPlay: true,
+                                    enlargeCenterPage: true,
+                                    viewportFraction: 0.9,
+                                    aspectRatio: 2.0,
+                                    initialPage: 2,
                                   ),
                                 ),
-                                Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                  elevation: 5,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(15),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          'Adição de produtos',
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                        SizedBox(height: 5),
-                                        Text(
-                                          'Para adicionar produtos à lista, clique na lista desejada e após clique no botão flutuante para exibir a tela de categorias, após isso selecione a categoria desejada e marque os produtos para ser adicionado à lista.',
-                                          textAlign: TextAlign.justify,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                  elevation: 5,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(15),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          'Produtos personalizados',
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                        SizedBox(height: 5),
-                                        Text(
-                                          'Caso não encontre um produto específico, você poderá adicioná-lo manualmente. Para fazer isso, na tela de categoria role a lista até o final e selecione a categoria "Produtos Personalizados", após isso clique no botão flutuante e preencha o formulário para adicionar. O produto aparecerá nessa categoria e também na categoria em que foi preenchida no formulário.',
-                                          textAlign: TextAlign.justify,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                  elevation: 5,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(15),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          'Informações Adicionais',
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                        SizedBox(height: 5),
-                                        Text(
-                                          'Para adicionar informações adicionais aos produtos como descrição, quantidade e preço, na sua lista, clique no icone de mais opções do produto desejado e preencha o formulário.',
-                                          textAlign: TextAlign.justify,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: _carouselItems.map((item) {
+                                    int index = _carouselItems.indexOf(item);
+                                    return Container(
+                                      width: 8.0,
+                                      height: 8.0,
+                                      margin: EdgeInsets.symmetric(
+                                          vertical: 10.0, horizontal: 2.0),
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: _carouselIndex == index
+                                            ? Theme.of(context).primaryColor
+                                            : Color.fromRGBO(0, 0, 0, 0.3),
+                                      ),
+                                    );
+                                  }).toList(),
                                 ),
                               ],
                             ),

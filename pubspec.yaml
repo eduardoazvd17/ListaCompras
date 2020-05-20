@@ -20,6 +20,7 @@ dependencies:
   connectivity: ^0.4.8+2
   shared_preferences: ^0.5.7
   cloud_firestore: ^0.13.5
+  carousel_slider: 2.1.0
   flutter:
     sdk: flutter
 
