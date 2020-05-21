@@ -19,6 +19,61 @@ class _TelaPinState extends State<TelaPin> {
   Color corMsg;
   String pinDigitado = '';
 
+  Widget _digitosPin(int d) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          width: 15,
+          height: 15,
+          margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: d == 1 || d == 2 || d == 3 || d == 4
+                ? Theme.of(context).primaryColor
+                : Color.fromRGBO(0, 0, 0, 0.3),
+          ),
+        ),
+        SizedBox(width: 5),
+        Container(
+          width: 15,
+          height: 15,
+          margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: d == 2 || d == 3 || d == 4
+                ? Theme.of(context).primaryColor
+                : Color.fromRGBO(0, 0, 0, 0.3),
+          ),
+        ),
+        SizedBox(width: 5),
+        Container(
+          width: 15,
+          height: 15,
+          margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: d == 3 || d == 4
+                ? Theme.of(context).primaryColor
+                : Color.fromRGBO(0, 0, 0, 0.3),
+          ),
+        ),
+        SizedBox(width: 5),
+        Container(
+          width: 15,
+          height: 15,
+          margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: d == 4
+                ? Theme.of(context).primaryColor
+                : Color.fromRGBO(0, 0, 0, 0.3),
+          ),
+        ),
+      ],
+    );
+  }
+
   _entrar(BuildContext context) async {
     if (pinDigitado == widget.pin) {
       widget.atualizarUsuario(widget.usuario);
@@ -79,24 +134,20 @@ class _TelaPinState extends State<TelaPin> {
                     SizedBox(height: 10),
                     Column(
                       children: <Widget>[
-                        Text(
-                          pinDigitado.length == 0
-                              ? "_ _ _ _"
-                              : pinDigitado.length == 1
-                                  ? "* _ _ _"
-                                  : pinDigitado.length == 2
-                                      ? "* * _ _"
-                                      : pinDigitado.length == 3
-                                          ? "* * * _"
-                                          : "* * * *",
-                          style: TextStyle(
-                              fontSize: 50, fontWeight: FontWeight.bold),
-                        ),
+                        pinDigitado.length == 0
+                            ? _digitosPin(0)
+                            : pinDigitado.length == 1
+                                ? _digitosPin(1)
+                                : pinDigitado.length == 2
+                                    ? _digitosPin(2)
+                                    : pinDigitado.length == 3
+                                        ? _digitosPin(3)
+                                        : _digitosPin(4),
                       ],
                     ),
                   ],
                 ),
-                SizedBox(height: 50),
+                SizedBox(height: 20),
                 Column(
                   children: <Widget>[
                     Row(
@@ -168,7 +219,7 @@ class _TelaPinState extends State<TelaPin> {
                     ),
                   ],
                 ),
-                SizedBox(height: 50),
+                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
