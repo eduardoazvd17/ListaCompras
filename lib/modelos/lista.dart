@@ -25,7 +25,9 @@ class Lista {
     double total = 0;
     for (var p in produtos) {
       if (p.descricao != null) {
-        total += (p.descricao.quantidade * p.descricao.preco);
+        if (p.descricao.quantidade != null && p.descricao.preco != null) {
+          total += (p.descricao.quantidade * p.descricao.preco);
+        }
       }
     }
     return total;
