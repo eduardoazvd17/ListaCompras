@@ -24,9 +24,9 @@ class Lista {
   double calcularGastos() {
     double total = 0;
     for (var p in produtos) {
-      if (p.descricao != null) {
-        if (p.descricao.quantidade != null && p.descricao.preco != null) {
-          total += (p.descricao.quantidade * p.descricao.preco);
+      if (p.informacoes != null) {
+        if (p.informacoes.quantidade != null && p.informacoes.preco != null) {
+          total += (p.informacoes.quantidade * p.informacoes.preco);
         }
       }
     }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:listacompras/modelos/descricao.dart';
+import 'package:listacompras/modelos/informacoes.dart';
 import 'package:listacompras/modelos/lista.dart';
 import 'package:listacompras/modelos/prefixo.dart';
 import 'package:listacompras/modelos/produto.dart';
@@ -20,7 +20,7 @@ class FormInformacoesProdutos extends StatefulWidget {
   });
 
   @override
-  _FormInformacoesProdutosState createState() => produto.descricao == null
+  _FormInformacoesProdutosState createState() => produto.informacoes == null
       ? _FormInformacoesProdutosState(
           TextEditingController(),
           0,
@@ -28,14 +28,14 @@ class FormInformacoesProdutos extends StatefulWidget {
           'x',
         )
       : _FormInformacoesProdutosState(
-          TextEditingController(text: produto.descricao.descricao),
-          produto.descricao.quantidade,
+          TextEditingController(text: produto.informacoes.descricao),
+          produto.informacoes.quantidade,
           TextEditingController(
-            text: produto.descricao.preco == null
+            text: produto.informacoes.preco == null
                 ? ''
-                : produto.descricao.preco.toStringAsFixed(2),
+                : produto.informacoes.preco.toStringAsFixed(2),
           ),
-          produto.descricao.prefixo,
+          produto.informacoes.prefixo,
         );
 }
 
@@ -49,7 +49,7 @@ class _FormInformacoesProdutosState extends State<FormInformacoesProdutos> {
 
   _salvar(BuildContext context) {
     String valor = precoController.text.replaceAll(',', '.');
-    widget.produto.descricao = Descricao(
+    widget.produto.informacoes = Informacoes(
       descricao: descricaoController.text,
       quantidade: quantidade,
       preco: double.tryParse(valor),

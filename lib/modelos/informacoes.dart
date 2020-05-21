@@ -1,10 +1,10 @@
-class Descricao {
+class Informacoes {
   String descricao;
   double quantidade;
   double preco;
   String prefixo;
 
-  Descricao({
+  Informacoes({
     this.descricao,
     this.quantidade,
     this.preco,
@@ -20,7 +20,7 @@ class Descricao {
     };
   }
 
-  Descricao.fromJson(Map<String, dynamic> json) {
+  Informacoes.fromJson(Map<String, dynamic> json) {
     this.descricao = json['descricao'];
     this.quantidade = double.tryParse(json['quantidade'].toString());
     this.preco = json['preco'];

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:listacompras/modelos/descricao.dart';
+import 'package:listacompras/modelos/informacoes.dart';
 import 'package:listacompras/modelos/produto.dart';
 
 class ItemMeuProduto extends StatelessWidget {
@@ -9,22 +9,22 @@ class ItemMeuProduto extends StatelessWidget {
   final Function onTap;
   ItemMeuProduto({this.produto, this.onDeletar, this.addInfo, this.onTap});
 
-  Widget _formarSubtitulo(Descricao d) {
+  Widget _formarSubtitulo(Informacoes i) {
     String qtd = '', unt = '', tot = '';
     bool q = false, u = false, t = false;
-    String qtdString = d.prefixo == 'x'
-        ? d.quantidade.toStringAsFixed(0)
-        : d.quantidade.toStringAsFixed(1);
-    if (d.quantidade != 0) {
-      qtd = 'Quantidade: ' + qtdString + d.prefixo;
+    String qtdString = i.prefixo == 'x'
+        ? i.quantidade.toStringAsFixed(0)
+        : i.quantidade.toStringAsFixed(1);
+    if (i.quantidade != 0) {
+      qtd = 'Quantidade: ' + qtdString + i.prefixo;
       q = true;
     }
-    if (d.preco != null || double.tryParse(d.preco.toString()) != null) {
-      unt = 'Valor unitário: R\$' + d.preco.toStringAsFixed(2);
+    if (i.preco != null || double.tryParse(i.preco.toString()) != null) {
+      unt = 'Valor unitário: R\$' + i.preco.toStringAsFixed(2);
       u = true;
     }
-    if (d.quantidade != 0 && d.preco != null) {
-      tot = 'Total: R\$' + (d.quantidade * d.preco).toStringAsFixed(2);
+    if (i.quantidade != 0 && i.preco != null) {
+      tot = 'Total: R\$' + (i.quantidade * i.preco).toStringAsFixed(2);
       t = true;
     }
 
@@ -44,26 +44,28 @@ class ItemMeuProduto extends StatelessWidget {
     return Column(
       children: <Widget>[
         ListTile(
-          isThreeLine: produto.descricao == null
+          isThreeLine: produto.informacoes == null
               ? false
-              : produto.descricao.quantidade != 0 &&
-                      (produto.descricao.preco != null ||
-                          double.tryParse(produto.descricao.preco.toString()) !=
+              : produto.informacoes.quantidade != 0 &&
+                      (produto.informacoes.preco != null ||
+                          double.tryParse(
+                                  produto.informacoes.preco.toString()) !=
                               null)
                   ? true
                   : false,
-          subtitle: produto.descricao == null
+          subtitle: produto.informacoes == null
               ? null
-              : (produto.descricao.quantidade != 0 &&
-                          (produto.descricao.preco != null ||
+              : (produto.informacoes.quantidade != 0 &&
+                          (produto.informacoes.preco != null ||
                               double.tryParse(
-                                      produto.descricao.preco.toString()) !=
+                                      produto.informacoes.preco.toString()) !=
                                   null)) ||
-                      (produto.descricao.preco != null ||
-                          double.tryParse(produto.descricao.preco.toString()) !=
+                      (produto.informacoes.preco != null ||
+                          double.tryParse(
+                                  produto.informacoes.preco.toString()) !=
                               null) ||
-                      produto.descricao.quantidade != 0
-                  ? _formarSubtitulo(produto.descricao)
+                      produto.informacoes.quantidade != 0
+                  ? _formarSubtitulo(produto.informacoes)
                   : null,
           title: Text(
             produto.nome,
