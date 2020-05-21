@@ -261,10 +261,11 @@ class _TelaInicioState extends State<TelaInicio> {
                                         _carouselIndex = index;
                                       });
                                     },
+                                    height: 200,
                                     autoPlay: true,
                                     enlargeCenterPage: true,
                                     viewportFraction: 0.9,
-                                    aspectRatio: 2.0,
+                                    aspectRatio: 16 / 9,
                                     initialPage: 1,
                                   ),
                                 ),
