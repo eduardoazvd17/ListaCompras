@@ -85,7 +85,7 @@ class _TelaPinState extends State<TelaPin> {
         msg = 'Senha Incorreta';
         corMsg = Colors.red;
       });
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(Duration(seconds: 1), () {
         setState(() {
           pinDigitado = '';
           msg = 'Digite sua Senha';
