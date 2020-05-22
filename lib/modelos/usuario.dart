@@ -18,7 +18,6 @@ class Usuario {
   }
 
   adicionarProdutoPersonalizado(Produto p) {
-    p.informacoes = null; //Remove as informações adicionais
     removerProdutoPersonalizado(p);
     produtosPersonalizados.add(p);
     produtosPersonalizados.sort(
