@@ -1,4 +1,5 @@
 import 'package:listacompras/modelos/informacoes.dart';
+import 'package:listacompras/modelos/produto_personalizado.dart';
 
 class Produto {
   String id;
@@ -28,5 +29,13 @@ class Produto {
     if (json['informacoes'] != null) {
       this.informacoes = Informacoes.fromJson(json['informacoes']);
     }
+  }
+
+  Produto.fromProdutoPersonalizado(ProdutoPersonalizado p) {
+    this.id = p.id;
+    this.idCategoria = p.idCategoria;
+    this.nome = p.nome;
+    this.isComprado = false;
+    this.informacoes = null;
   }
 }

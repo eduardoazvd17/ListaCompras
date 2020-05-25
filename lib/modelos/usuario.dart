@@ -1,11 +1,11 @@
 import 'package:listacompras/modelos/lista.dart';
-import 'package:listacompras/modelos/produto.dart';
+import 'package:listacompras/modelos/produto_personalizado.dart';
 
 class Usuario {
   String nome;
   String email;
   List<Lista> listasDeCompras = [];
-  List<Produto> produtosPersonalizados = [];
+  List<ProdutoPersonalizado> produtosPersonalizados = [];
 
   Usuario({this.email, this.nome});
 
@@ -17,7 +17,7 @@ class Usuario {
     );
   }
 
-  adicionarProdutoPersonalizado(Produto p) {
+  adicionarProdutoPersonalizado(ProdutoPersonalizado p) {
     removerProdutoPersonalizado(p);
     produtosPersonalizados.add(p);
     produtosPersonalizados.sort(
@@ -29,7 +29,7 @@ class Usuario {
     listasDeCompras.removeWhere((li) => li.id == l.id);
   }
 
-  removerProdutoPersonalizado(Produto p) {
+  removerProdutoPersonalizado(ProdutoPersonalizado p) {
     produtosPersonalizados.removeWhere((pr) => pr.id == p.id);
   }
 
@@ -67,9 +67,9 @@ class Usuario {
       listas.add(Lista.fromJson(l));
     }
     this.listasDeCompras = listas;
-    List<Produto> pPersonalizados = [];
+    List<ProdutoPersonalizado> pPersonalizados = [];
     for (var p in json['produtosPersonalizados']) {
-      pPersonalizados.add(Produto.fromJson(p));
+      pPersonalizados.add(ProdutoPersonalizado.fromJson(p));
     }
     this.produtosPersonalizados = pPersonalizados;
   }

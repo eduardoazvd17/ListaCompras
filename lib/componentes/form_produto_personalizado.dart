@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:listacompras/modelos/produto.dart';
+import 'package:listacompras/modelos/produto_personalizado.dart';
 import 'package:listacompras/modelos/usuario.dart';
 import 'package:listacompras/utilitarios/dados.dart';
 
@@ -46,7 +47,8 @@ class _FormProdutoPersonalizadoState extends State<FormProdutoPersonalizado> {
         : widget.produto.id;
     Produto p =
         Produto(id: id, idCategoria: idCategoriaSelecionada, nome: nome);
-    widget.usuario.adicionarProdutoPersonalizado(p);
+    widget.usuario
+        .adicionarProdutoPersonalizado(ProdutoPersonalizado.fromProduto(p));
     widget.atualizarUsuario(widget.usuario);
     widget.atualizarProdutosPersonalizados();
     Navigator.of(context).pop();

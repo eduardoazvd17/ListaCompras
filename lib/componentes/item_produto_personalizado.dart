@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:listacompras/componentes/form_produto_personalizado.dart';
 import 'package:listacompras/modelos/lista.dart';
 import 'package:listacompras/modelos/produto.dart';
+import 'package:listacompras/modelos/produto_personalizado.dart';
 import 'package:listacompras/modelos/usuario.dart';
 import 'package:listacompras/utilitarios/dados.dart';
 import 'package:listacompras/utilitarios/validador.dart';
@@ -89,8 +90,8 @@ class _ItemProdutoPersonalizadoState extends State<ItemProdutoPersonalizado> {
                     mensagem:
                         'Deseja realmente excluir o produto personalizado: ${widget.produto.nome}?',
                     sim: () {
-                      widget.usuario
-                          .removerProdutoPersonalizado(widget.produto);
+                      widget.usuario.removerProdutoPersonalizado(
+                          ProdutoPersonalizado.fromProduto(widget.produto));
                       widget.atualizarUsuario(widget.usuario);
                       widget.atualizarProdutosPersonalizados();
                       Navigator.of(context).pop();

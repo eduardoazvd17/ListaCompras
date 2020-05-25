@@ -5,6 +5,7 @@ import 'package:listacompras/componentes/layout.dart';
 import 'package:listacompras/componentes/mensagem_lista_vazia.dart';
 import 'package:listacompras/modelos/lista.dart';
 import 'package:listacompras/modelos/produto.dart';
+import 'package:listacompras/modelos/produto_personalizado.dart';
 import 'package:listacompras/modelos/usuario.dart';
 import 'package:listacompras/utilitarios/dados.dart';
 
@@ -26,7 +27,7 @@ class TelaProdutosPersonalizados extends StatefulWidget {
 
 class _TelaProdutosPersonalizadosState
     extends State<TelaProdutosPersonalizados> {
-  List<Produto> produtosPersonalizados;
+  List<ProdutoPersonalizado> produtosPersonalizados;
   final dados = Dados();
 
   _atualizarProdutosPersonalizados() {
@@ -71,7 +72,8 @@ class _TelaProdutosPersonalizadosState
               child: ListView.builder(
                 itemCount: produtosPersonalizados.length,
                 itemBuilder: (context, index) {
-                  Produto produto = produtosPersonalizados[index];
+                  Produto produto = Produto.fromProdutoPersonalizado(
+                      produtosPersonalizados[index]);
                   return ItemProdutoPersonalizado(
                     produto: produto,
                     usuario: widget.usuario,

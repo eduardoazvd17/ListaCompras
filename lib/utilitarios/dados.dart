@@ -290,7 +290,7 @@ class Dados {
     List<Produto> ps = produtos.where((pr) => pr.idCategoria == c.id).toList();
     for (var p in u.produtosPersonalizados) {
       if (p.idCategoria == c.id) {
-        ps.add(p);
+        ps.add(Produto.fromProdutoPersonalizado(p));
       }
     }
     ps.sort(
