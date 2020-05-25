@@ -266,7 +266,7 @@ class _TelaInicioState extends State<TelaInicio> {
                                     enlargeCenterPage: true,
                                     viewportFraction: 0.9,
                                     aspectRatio: 16 / 9,
-                                    initialPage: 1,
+                                    initialPage: 0,
                                   ),
                                 ),
                                 Row(
