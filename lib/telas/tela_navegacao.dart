@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:listacompras/componentes/drawer_usuario.dart';
 import 'package:listacompras/componentes/form_lista.dart';
 import 'package:listacompras/componentes/layout.dart';
 import 'package:listacompras/modelos/usuario.dart';
@@ -20,6 +21,12 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
   Usuario usuario;
   int _itemSelecionado = 0;
   _TelaNavegacaoState(this.usuario);
+
+  _retornarAoInicio() {
+    setState(() {
+      _itemSelecionado = 0;
+    });
+  }
 
   _atualizarUsuario(Usuario u) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -52,51 +59,19 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
     ];
 
     return Layout(
+      drawer: usuario == null
+          ? null
+          : Drawer(
+              child: DrawerUsuario(
+                usuario: usuario,
+                atualizarUsuario: _atualizarUsuario,
+                retornarAoInicio: _retornarAoInicio,
+              ),
+            ),
       title: usuario == null
           ? 'Entre com seu e-mail'
           : _itemSelecionado == 0 ? 'Inicio' : 'Listas de Compras',
       child: _telas[_itemSelecionado],
-      actions: _itemSelecionado == 0
-          ? usuario != null
-              ? <Widget>[
-                  IconButton(
-                      icon: Icon(Icons.exit_to_app),
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text('Finalizar Sesaão'),
-                                content: Text('Deseja realmente sair?'),
-                                actions: <Widget>[
-                                  FlatButton(
-                                      onPressed: () {
-                                        _atualizarUsuario(null);
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text(
-                                        'Sim',
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).accentColor),
-                                      )),
-                                  FlatButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text(
-                                        'Não',
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).accentColor),
-                                      )),
-                                ],
-                              );
-                            });
-                      })
-                ]
-              : null
-          : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: usuario == null
           ? null
