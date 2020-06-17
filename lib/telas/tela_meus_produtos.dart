@@ -27,7 +27,6 @@ class _TelaMeusProdutosState extends State<TelaMeusProdutos> {
 
   @override
   Widget build(BuildContext context) {
-    _atualizarLista();
     return Layout(
       title: '${lista.nome} - R\$' + lista.calcularGastos().toStringAsFixed(2),
       child: LayoutBuilder(
@@ -44,15 +43,17 @@ class _TelaMeusProdutosState extends State<TelaMeusProdutos> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (_) => TelaCategorias(
-                usuario: widget.usuario,
-                atualizarUsuario: widget.atualizarUsuario,
-                lista: lista,
-              ),
-            ),
-          );
+          Navigator.of(context)
+              .push(
+                MaterialPageRoute(
+                  builder: (_) => TelaCategorias(
+                    usuario: widget.usuario,
+                    atualizarUsuario: widget.atualizarUsuario,
+                    lista: lista,
+                  ),
+                ),
+              )
+              .then((_) => _atualizarLista());
         },
         child: Icon(Icons.add),
       ),
