@@ -29,6 +29,7 @@ class DrawerUsuario extends StatelessWidget {
                   child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
+                  SizedBox(height: 15),
                   Icon(
                     Icons.person,
                     color: Colors.white,
