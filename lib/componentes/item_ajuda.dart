@@ -14,6 +14,7 @@ class ItemAjuda extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(15),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
@@ -29,7 +30,7 @@ class ItemAjuda extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 10),
             Text(
               mensagem,
               textAlign: TextAlign.justify,
