@@ -180,7 +180,7 @@ class _FormInformacoesProdutosState extends State<FormInformacoesProdutos> {
                               quantidade = 0;
                             });
                           },
-                          child: Text('0 ${prefixo}'),
+                          child: Text('0 $prefixo'),
                         ),
                         OutlineButton(
                           onPressed: () {
@@ -188,7 +188,7 @@ class _FormInformacoesProdutosState extends State<FormInformacoesProdutos> {
                               quantidade += 0.5;
                             });
                           },
-                          child: Text('+0.5 ${prefixo}'),
+                          child: Text('+0.5 $prefixo'),
                         ),
                         OutlineButton(
                           onPressed: () {
@@ -196,7 +196,7 @@ class _FormInformacoesProdutosState extends State<FormInformacoesProdutos> {
                               quantidade += 1;
                             });
                           },
-                          child: Text('+1 ${prefixo}'),
+                          child: Text('+1 $prefixo'),
                         ),
                       ],
                     )
