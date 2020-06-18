@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:65221649497:android:cef6b83e0849e9ef70fd48",
+        "mobilesdk_app_id": "1:65221649497:android:d8374ad84b649ad670fd48",
         "android_client_info": {
-          "package_name": "dev.eduardoazevedo.listacompras"
+          "package_name": "com.eduardoazevedo.listacompras"
         }
       },
       "oauth_client": [
