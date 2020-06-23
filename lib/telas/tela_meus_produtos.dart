@@ -13,11 +13,13 @@ class TelaMeusProdutos extends StatefulWidget {
   TelaMeusProdutos({this.usuario, this.atualizarUsuario, this.lista});
 
   @override
-  _TelaMeusProdutosState createState() => _TelaMeusProdutosState();
+  _TelaMeusProdutosState createState() =>
+      _TelaMeusProdutosState(usuario.listaPorId(lista.id));
 }
 
 class _TelaMeusProdutosState extends State<TelaMeusProdutos> {
   Lista lista;
+  _TelaMeusProdutosState(this.lista);
 
   _atualizarLista() {
     setState(() {
