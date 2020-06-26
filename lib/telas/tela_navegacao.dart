@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:listacompras/componentes/drawer_usuario.dart';
 import 'package:listacompras/componentes/form_lista.dart';
 import 'package:listacompras/componentes/layout.dart';
 import 'package:listacompras/modelos/usuario.dart';
@@ -31,10 +29,6 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
   _atualizarUsuario(Usuario u) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (u != null) {
-      Firestore.instance
-          .collection('usuarios')
-          .document(u.email)
-          .updateData({'dados': u.toJson()});
       prefs.setString('usuario', json.encode(u.toJson()));
     } else {
       prefs.setString('email', '');
@@ -59,15 +53,6 @@ class _TelaNavegacaoState extends State<TelaNavegacao> {
     ];
 
     return Layout(
-      drawer: usuario == null
-          ? null
-          : Drawer(
-              child: DrawerUsuario(
-                usuario: usuario,
-                atualizarUsuario: _atualizarUsuario,
-                retornarAoInicio: _retornarAoInicio,
-              ),
-            ),
       title: usuario == null
           ? 'Entre com seu e-mail'
           : _itemSelecionado == 0 ? 'Inicio' : 'Listas de Compras',

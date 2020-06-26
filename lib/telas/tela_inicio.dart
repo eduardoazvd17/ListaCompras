@@ -1,12 +1,11 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:listacompras/componentes/form_cadastro.dart';
 import 'package:listacompras/componentes/item_ajuda.dart';
 import 'package:listacompras/modelos/usuario.dart';
-import 'package:listacompras/telas/tela_pin.dart';
 import 'package:listacompras/utilitarios/validador.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TelaInicio extends StatefulWidget {
   final Usuario usuario;
@@ -37,57 +36,24 @@ class _TelaInicioState extends State<TelaInicio> {
       'Para adicionar informações adicionais aos produtos como descrição, quantidade e preço, na sua lista, clique no icone de mais opções do produto desejado e preencha o formulário.',
     ),
   ];
-  final emailController = TextEditingController();
+  final nomeController = TextEditingController();
 
   _entrar() async {
     var v = Validador(context);
-    String email = emailController.text.trim();
+    String nome = nomeController.text.trim();
 
-    if (v.isVazio(email)) {
-      return;
-    }
-
-    if (!v.isEmail(email)) {
-      v.mostrarDialogoOK(
-          'E-mail Inválido', 'Digite um endereço de e-mail válido.');
+    if (v.isVazio(nome)) {
       return;
     }
 
     v.mostrarCarregamento('Entrando...');
 
-    var conn = await Connectivity().checkConnectivity();
-    if (conn == ConnectivityResult.none) {
-      v.ocultarCarregamento();
-      v.mostrarDialogoOK('Conexão Indisponível',
-          'Sem conexão com a internet, ative o wifi ou os dados móveis para continuar.');
-      return;
-    }
-
-    DocumentSnapshot doc =
-        await Firestore.instance.collection('usuarios').document(email).get();
-
-    if (doc.data == null) {
-      v.ocultarCarregamento();
-      v.mostrarDialogoOK('E-mail Não Cadastrado',
-          'Este endereço de e-mail não está cadastrado, utilize o formulário de cadastro clicando em "Ainda não possui uma conta?".');
-      return;
-    }
-
-    Usuario u = Usuario.fromJson(
-      doc['dados'],
-    );
+    var prefs = await SharedPreferences.getInstance();
+    Usuario u = Usuario(nome: nome);
+    prefs.setString('usuario', json.encode(u.toJson()));
+    widget.atualizarUsuario(u);
 
     v.ocultarCarregamento();
-
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => TelaPin(
-          usuario: u,
-          atualizarUsuario: widget.atualizarUsuario,
-          pin: doc['pin'],
-        ),
-      ),
-    );
   }
 
   String _formarComunicacao() {
@@ -157,12 +123,11 @@ class _TelaInicioState extends State<TelaInicio> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               TextField(
-                                textCapitalization: TextCapitalization.none,
-                                keyboardType: TextInputType.emailAddress,
-                                controller: emailController,
+                                textCapitalization: TextCapitalization.words,
+                                controller: nomeController,
                                 decoration: InputDecoration(
                                   suffixIcon: Icon(Icons.mail),
-                                  hintText: "Insira seu e-mail...",
+                                  hintText: "Insira seu nome...",
                                 ),
                               ),
                               SizedBox(height: 10),
@@ -182,31 +147,6 @@ class _TelaInicioState extends State<TelaInicio> {
                             ],
                           ),
                         ),
-                      ),
-                      SizedBox(height: 30),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          FlatButton(
-                            onPressed: () {
-                              showModalBottomSheet(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(40),
-                                  ),
-                                ),
-                                isScrollControlled: true,
-                                context: context,
-                                builder: (_) => FormCadastro(
-                                  atualizarUsuario: widget.atualizarUsuario,
-                                ),
-                              );
-                            },
-                            child: Text(
-                              'Ainda não possui uma conta?',
-                            ),
-                          ),
-                        ],
                       ),
                     ],
                   ),

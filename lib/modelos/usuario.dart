@@ -3,11 +3,10 @@ import 'package:listacompras/modelos/produto_personalizado.dart';
 
 class Usuario {
   String nome;
-  String email;
   List<Lista> listasDeCompras = [];
   List<ProdutoPersonalizado> produtosPersonalizados = [];
 
-  Usuario({this.email, this.nome});
+  Usuario({this.nome});
 
   adicionarLista(Lista l) {
     removerLista(l);
@@ -53,7 +52,6 @@ class Usuario {
     }
     return {
       'nome': this.nome,
-      'email': this.email,
       'listasDeCompras': listas,
       'produtosPersonalizados': pPersonalizados,
     };
@@ -61,7 +59,6 @@ class Usuario {
 
   Usuario.fromJson(Map<String, dynamic> json) {
     this.nome = json['nome'];
-    this.email = json['email'];
     List<Lista> listas = [];
     for (var l in json['listasDeCompras']) {
       listas.add(Lista.fromJson(l));

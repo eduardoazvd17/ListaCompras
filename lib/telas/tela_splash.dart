@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:listacompras/modelos/usuario.dart';
 import 'package:listacompras/telas/tela_navegacao.dart';
@@ -30,21 +28,11 @@ class _TelaSplashState extends State<TelaSplash> {
 
   Future<Usuario> _isLogado() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String email = prefs.getString('email');
-    var conn = await Connectivity().checkConnectivity();
-    if (email == null || email.isEmpty) {
+    String usuario = prefs.getString('usuario');
+    if (usuario == null || usuario.isEmpty) {
       return null;
     } else {
-      if (conn == ConnectivityResult.none) {
-        var usuarioJS = prefs.getString('usuario');
-        return Usuario.fromJson(json.decode(usuarioJS));
-      } else {
-        var doc = await Firestore.instance
-            .collection('usuarios')
-            .document(email)
-            .get();
-        return Usuario.fromJson(doc['dados']);
-      }
+      return Usuario.fromJson(json.decode(usuario));
     }
   }
 
