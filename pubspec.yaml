@@ -17,8 +17,8 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  shared_preferences: ^0.5.7
-  carousel_slider: 2.1.0
+  shared_preferences:
+  carousel_slider:
   flutter:
     sdk: flutter
 
